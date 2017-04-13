@@ -1,0 +1,23 @@
+{
+  "name": "miaoxing/config",
+  "description": "Miaoxing Config Plugin",
+  "keywords": [
+    "miaoxing", "config"
+  ],
+  "license": "MIT",
+  "require": {
+    "miaoxing/app": "dev-master@dev"
+  },
+  "autoload": {
+    "psr-4": {
+      "Miaoxing\\Config\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "MiaoxingTest\\Config\\": "tests"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
