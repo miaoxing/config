@@ -25,6 +25,8 @@ class ConfigRecord extends BaseModel
 
     const TYPE_FLOAT = 3;
 
+    const TYPE_ARRAY = 4;
+
     protected $typeTable = [
         self::TYPE_STRING => [
             'text' => '字符串',
@@ -37,6 +39,9 @@ class ConfigRecord extends BaseModel
         ],
         self::TYPE_FLOAT => [
             'text' => '小数'
+        ],
+        self::TYPE_ARRAY => [
+            'text' => '数组'
         ]
     ];
 
@@ -119,10 +124,38 @@ class ConfigRecord extends BaseModel
         $data = [];
         foreach ($configs as $config) {
             list($service, $option) = explode('.', $config['name']);
-            $data[$service][$option] = unserialize($config['value']);
+            $data[$service][$option] = $this->covert($config['value'], $config['type']);
         }
 
         return $this->writeConfigFile($data);
+    }
+
+    /**
+     * @param string $value
+     * @param int $type
+     * @return mixed
+     */
+    protected function covert($value, $type)
+    {
+        switch ($type) {
+            case static::TYPE_STRING:
+                return (string) $value;
+
+            case static::TYPE_INT:
+                return (int) $value;
+
+            case static::TYPE_FLOAT:
+                return (float) $value;
+
+            case static::TYPE_BOOL:
+                return (bool) $value;
+
+            case static::TYPE_ARRAY:
+                return json_decode($value, true);
+
+            default:
+                return $value;
+        }
     }
 
     protected function writeConfigFile($data)

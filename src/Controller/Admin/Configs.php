@@ -35,7 +35,7 @@ class Configs extends BaseController
                 /** @var ConfigRecord $config */
                 foreach ($configs->findAll() as $config) {
                     $data[] = $config->toArray() + [
-
+                        'type_name' => $config->getConstantValue('type', $config['type'], 'text'),
                         ];
                 }
 

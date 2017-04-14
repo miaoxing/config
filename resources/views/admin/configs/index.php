@@ -14,6 +14,7 @@
         <tr>
           <th>服务器</th>
           <th>名称</th>
+          <th>类型</th>
           <th>值</th>
           <th>最后修改时间</th>
           <th class="t-6">操作</th>
@@ -56,6 +57,9 @@
         },
         {
           data: 'name'
+        },
+        {
+          data: 'type_name'
         },
         {
           data: 'value'
