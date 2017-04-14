@@ -5,6 +5,7 @@ namespace Miaoxing\Config\Service;
 use Exception;
 use League\Flysystem\Adapter\Local;
 use miaoxing\plugin\BaseModel;
+use Miaoxing\Plugin\Constant;
 use Wei\Env;
 use League\Flysystem\Sftp\SftpAdapter;
 use League\Flysystem\Filesystem;
@@ -14,11 +15,44 @@ use League\Flysystem\Filesystem;
  */
 class ConfigRecord extends BaseModel
 {
+    use Constant;
+
+    const TYPE_STRING = 0;
+
+    const TYPE_BOOL = 1;
+
+    const TYPE_INT = 2;
+
+    const TYPE_FLOAT = 3;
+
+    protected $typeTable = [
+        self::TYPE_STRING => [
+            'text' => '字符串',
+        ],
+        self::TYPE_BOOL => [
+            'text' => '布尔值',
+        ],
+        self::TYPE_INT => [
+            'text' => '整数'
+        ],
+        self::TYPE_FLOAT => [
+            'text' => '小数'
+        ]
+    ];
+
     protected $table = 'configs';
 
     protected $providers = [
         'db' => 'app.db',
     ];
+
+    protected $createAtColumn = 'created_at';
+
+    protected $updateAtColumn = 'updated_at';
+
+    protected $createdByColumn = 'created_by';
+
+    protected $updatedByColumn = 'updated_by';
 
     /**
      * @var array
@@ -42,6 +76,9 @@ class ConfigRecord extends BaseModel
      */
     protected $configFile = 'data/cache/config.php';
 
+    /**
+     * {@inheritdoc}
+     */
     public function __construct(array $options = [])
     {
         parent::__construct($options);
@@ -49,9 +86,34 @@ class ConfigRecord extends BaseModel
         $this->env->loadConfigFile($this->configFile);
     }
 
-    public function write($server)
+    public function getServers()
     {
-        $configs = wei()->configRecord()->findAll(['server' => ['', $server]]);
+        $data = [];
+        $data[] = [
+            'name' => '全部',
+            'value' => '',
+        ];
+
+        foreach ($this->servers as $server) {
+            if (isset($server['options']['host'])) {
+                $data[] = [
+                    'name' => $server['options']['host'],
+                    'value' => $server['options']['host'],
+                ];
+            } else {
+                $data[] = [
+                    'name' => $server['adapter'],
+                    'value' => $server['adapter'],
+                ];
+            }
+        }
+
+        return $data;
+    }
+
+    public function write()
+    {
+        $configs = wei()->configRecord()->findAll();
 
         // 转为配置数组
         $data = [];
