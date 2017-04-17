@@ -35,14 +35,14 @@ class ConfigRecord extends BaseModel
             'text' => '布尔值',
         ],
         self::TYPE_INT => [
-            'text' => '整数'
+            'text' => '整数',
         ],
         self::TYPE_FLOAT => [
-            'text' => '小数'
+            'text' => '小数',
         ],
         self::TYPE_ARRAY => [
-            'text' => '数组'
-        ]
+            'text' => '数组',
+        ],
     ];
 
     protected $table = 'configs';
