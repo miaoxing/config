@@ -16,6 +16,8 @@ class Config extends \Wei\Config
 {
     use RetTrait;
 
+    const SERVER_ALL = '';
+
     /**
      * 配置文件的路径
      *
@@ -59,22 +61,43 @@ class Config extends \Wei\Config
      */
     public function write()
     {
+        // 获取所有配置
         $configs = wei()->configRecord()->findAll();
+        $servers = [];
+        $serverConfigs = [];
 
-        // 转为配置数组
-        $data = [];
+        // 按服务器对配置分组
+        foreach ($configs as $config) {
+            $servers[$config['server']][] = $config;
+        }
+
+        // 生成默认配置
+        $defaultConfig = $this->mergeConfig($servers[static::SERVER_ALL]);
+
+        // 附加服务器自己的配置
+        unset($servers[static::SERVER_ALL]);
+        foreach ($servers as $server => $configs) {
+            $serverConfigs[$server] = $this->mergeConfig($configs, $defaultConfig);
+        }
+
+        // 逐个服务器写入配置
+        $this->writeConfigFile($serverConfigs);
+    }
+
+    public function mergeConfig($configs, $data = [])
+    {
+        /** @var ConfigRecord $config */
         foreach ($configs as $config) {
             list($service, $option) = explode('.', $config['name']);
             $data[$service][$option] = $config->getPhpValue();
         }
-
-        return $this->writeConfigFile($data);
+        return $data;
     }
 
     /**
      * @return array
      */
-    public function getServers()
+    public function getServerConfigs()
     {
         $data = [];
         $data[] = [
@@ -83,39 +106,45 @@ class Config extends \Wei\Config
         ];
 
         foreach ($this->servers as $server) {
-            if (isset($server['options']['host'])) {
-                $data[] = [
-                    'name' => $server['options']['host'],
-                    'value' => $server['options']['host'],
-                ];
-            } else {
-                $data[] = [
-                    'name' => $server['adapter'],
-                    'value' => $server['adapter'],
-                ];
-            }
+            $key = $this->getKey($server);
+            $data[] = [
+                'name' => $key,
+                'value' => $key,
+            ];
         }
 
         return $data;
     }
 
+    protected function getKey($server)
+    {
+        if (isset($server['options']['host'])) {
+            return $server['options']['host'];
+        }
+
+        return $server['adapter'];
+    }
+
     protected function writeConfigFile($data)
     {
-        $rets = [];
+        $errors = [];
         foreach ($this->servers as $server) {
             $filesystem = $this->createFilesystem($server);
+            $key = $this->getKey($server);
+
             try {
-                $result = $filesystem->put($this->configFile, $this->generateContent($data));
+                var_dump($this->configFile, $this->generateContent($data[$key]));
+                $result = $filesystem->put($this->configFile, $this->generateContent($data[$key]));
                 if (!$result) {
-                    $rets[] = $this->err('写入失败', ['result' => $result]);
+                    $errors[] = $this->err('写入失败', ['result' => $result]);
                 }
             } catch (\LogicException $e) {
-                $rets[] = $this->err('写入失败:' . $e->getMessage());
+                $errors[] = $this->err('写入失败:' . $e->getMessage());
             }
         }
 
-        if ($rets) {
-            return $this->err('写入失败', ['rets' => $rets]);
+        if ($errors) {
+            return $this->err('写入失败', ['errors' => $errors]);
         }
 
         return $this->suc();

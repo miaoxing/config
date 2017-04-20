@@ -86,6 +86,8 @@ class Configs extends BaseController
 
         $config->destroy();
 
+        wei()->config->write();
+
         return $this->suc();
     }
 }
