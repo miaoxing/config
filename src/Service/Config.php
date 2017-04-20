@@ -133,7 +133,6 @@ class Config extends \Wei\Config
             $key = $this->getKey($server);
 
             try {
-                var_dump($this->configFile, $this->generateContent($data[$key]));
                 $result = $filesystem->put($this->configFile, $this->generateContent($data[$key]));
                 if (!$result) {
                     $errors[] = $this->err('写入失败', ['result' => $result]);
