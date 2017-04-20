@@ -66,6 +66,11 @@ class Config extends \Wei\Config
         $servers = [];
         $serverConfigs = [];
 
+        // 初始化服务器数组,确保每个服务器都会更新
+        foreach ($this->getServerConfigs() as $server) {
+            $servers[$server['name']] = [];
+        }
+
         // 按服务器对配置分组
         foreach ($configs as $config) {
             $servers[$config['server']][] = $config;
@@ -147,7 +152,9 @@ class Config extends \Wei\Config
                     $errors[] = $this->err('写入失败', ['result' => $result]);
                 }
             } catch (\LogicException $e) {
-                $errors[] = $this->err('写入失败:' . $e->getMessage());
+                $errors[] = $this->err('写入失败:' . $e->getMessage(), [
+                    'serverIp' => wei()->request->getServer('SERVER_ADDR'),
+                ]);
             }
         }
 
