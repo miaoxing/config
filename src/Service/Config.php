@@ -81,11 +81,15 @@ class Config extends \Wei\Config
         }
 
         // 逐个服务器写入配置
-        $this->writeConfigFile($serverConfigs);
+        return $this->writeConfigFile($serverConfigs);
     }
 
     public function mergeConfig($configs, $data = [])
     {
+        if (!$configs) {
+            return $data;
+        }
+
         /** @var ConfigRecord $config */
         foreach ($configs as $config) {
             list($service, $option) = explode('.', $config['name']);
@@ -130,9 +134,13 @@ class Config extends \Wei\Config
     {
         $errors = [];
         foreach ($this->servers as $server) {
-            $filesystem = $this->createFilesystem($server);
+            // 没有该服务器的配置则跳过
             $key = $this->getKey($server);
+            if (!isset($data[$key])) {
+                continue;
+            }
 
+            $filesystem = $this->createFilesystem($server);
             try {
                 $result = $filesystem->put($this->configFile, $this->generateContent($data[$key]));
                 if (!$result) {
