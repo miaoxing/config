@@ -91,6 +91,7 @@ class Config extends \Wei\Config
             list($service, $option) = explode('.', $config['name']);
             $data[$service][$option] = $config->getPhpValue();
         }
+
         return $data;
     }
 
