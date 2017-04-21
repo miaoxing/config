@@ -149,11 +149,15 @@ class Config extends \Wei\Config
             try {
                 $result = $filesystem->put($this->configFile, $this->generateContent($data[$key]));
                 if (!$result) {
-                    $errors[] = $this->err('写入失败', ['result' => $result, 'server' => $key]);
+                    $errors[] = $this->err([
+                        'message' => '写入失败',
+                        'server' => $key
+                    ]);
                 }
             } catch (\LogicException $e) {
-                $errors[] = $this->err('写入失败:' . $e->getMessage(), [
-                    'serverIp' => wei()->request->getServer('SERVER_ADDR'),
+                $errors[] = $this->err([
+                    'message' => '写入失败:' . $e->getMessage(),
+                    'localIp' => wei()->request->getServer('SERVER_ADDR'),
                 ]);
             }
         }
