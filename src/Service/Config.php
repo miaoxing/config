@@ -151,7 +151,7 @@ class Config extends \Wei\Config
                 if (!$result) {
                     $errors[] = $this->err([
                         'message' => '写入失败',
-                        'server' => $key
+                        'server' => $key,
                     ]);
                 }
             } catch (\LogicException $e) {
