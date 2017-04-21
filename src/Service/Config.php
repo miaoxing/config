@@ -149,7 +149,7 @@ class Config extends \Wei\Config
             try {
                 $result = $filesystem->put($this->configFile, $this->generateContent($data[$key]));
                 if (!$result) {
-                    $errors[] = $this->err('写入失败', ['result' => $result]);
+                    $errors[] = $this->err('写入失败', ['result' => $result, 'server' => $key]);
                 }
             } catch (\LogicException $e) {
                 $errors[] = $this->err('写入失败:' . $e->getMessage(), [
