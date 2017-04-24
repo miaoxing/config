@@ -119,8 +119,7 @@ class Config extends \Wei\Config
 
     public function getServers()
     {
-        // TODO 改为servers
-        return require '.rocketeer/servers.php';
+        return $this->servers;
     }
 
     /**
