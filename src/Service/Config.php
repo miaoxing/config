@@ -59,7 +59,7 @@ class Config extends \Wei\Config
     /**
      * @return array
      */
-    public function write()
+    public function publish()
     {
         // 获取所有配置
         $configs = wei()->configRecord()->findAll();

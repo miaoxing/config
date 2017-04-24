@@ -73,11 +73,6 @@ class Configs extends BaseController
         $config = wei()->configRecord()->findId($req['id']);
         $config->save($req);
 
-        $ret = wei()->config->write();
-        if ($ret['code'] !== 1) {
-            return $ret;
-        }
-
         return $this->suc([
             'data' => $config,
         ]);
@@ -89,7 +84,12 @@ class Configs extends BaseController
 
         $config->destroy();
 
-        $ret = wei()->config->write();
+        return $this->suc();
+    }
+
+    public function publishAction($req)
+    {
+        $ret = wei()->config->publish();
 
         return $ret;
     }

@@ -1,6 +1,7 @@
 <?php $view->layout() ?>
 
 <?= $block('header-actions') ?>
+<a class="js-publish btn btn-default" href="javascript:;">发布配置</a>
 <a class="btn btn-success" href="<?= $url('admin/configs/new') ?>">添加配置</a>
 <?= $block->end() ?>
 
@@ -78,6 +79,12 @@
     });
 
     $recordTable.deletable();
+
+    $('.js-publish').click(function () {
+      $.post($.url('admin/configs/publish.json'), function (ret) {
+        $.msg(ret);
+      });
+    });
   });
 </script>
 <?= $block->end() ?>
