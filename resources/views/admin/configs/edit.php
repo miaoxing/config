@@ -80,7 +80,7 @@
     'validator'
   ], function (form) {
     form.toOptions($('.js-type'), <?= json_encode(wei()->configRecord->getConstants('type')) ?>, 'id', 'text');
-    form.toOptions($('.js-server'), <?= json_encode(wei()->config->getServerConfigs()) ?>, 'value', 'name');
+    form.toOptions($('.js-server'), <?= json_encode(wei()->config->getServerOptions()) ?>, 'value', 'name');
 
     var config = <?= $config->toJson() ?>;
 

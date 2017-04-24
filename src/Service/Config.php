@@ -61,32 +61,45 @@ class Config extends \Wei\Config
      */
     public function publish()
     {
+        $serverConfigs = $this->getServers();
+
         // 获取所有配置
         $configs = wei()->configRecord()->findAll();
-        $servers = [];
-        $serverConfigs = [];
 
         // 初始化服务器数组,确保每个服务器都会更新
-        foreach ($this->getServerConfigs() as $server) {
-            $servers[$server['name']] = [];
+        $servers = [
+            static::SERVER_ALL => [],
+        ];
+        foreach ($serverConfigs as $name => $set) {
+            if ($set['adapter'] === 'set') {
+                continue;
+            }
+            $servers[$name] = [];
         }
 
-        // 按服务器对配置分组
+        // 按服务器和集群对配置分组
         foreach ($configs as $config) {
-            $servers[$config['server']][] = $config;
+            if ($serverConfigs[$config['server']]['adapter'] === 'set') {
+                foreach ($serverConfigs[$config['server']]['servers'] as $serverId) {
+                    $servers[$serverId][] = $config;
+                }
+            } else {
+                $servers[$config['server']][] = $config;
+            }
         }
 
-        // 生成默认配置
-        $defaultConfig = $this->mergeConfig($servers[static::SERVER_ALL]);
+        // 生成全局配置
+        $allConfig = $this->mergeConfig($servers[static::SERVER_ALL]);
 
         // 附加服务器自己的配置
+        $plainConfigs = [];
         unset($servers[static::SERVER_ALL]);
         foreach ($servers as $server => $configs) {
-            $serverConfigs[$server] = $this->mergeConfig($configs, $defaultConfig);
+            $plainConfigs[$server] = $this->mergeConfig($configs, $allConfig);
         }
 
         // 逐个服务器写入配置
-        return $this->writeConfigFile($serverConfigs);
+        return $this->writeConfigFile($plainConfigs);
     }
 
     public function mergeConfig($configs, $data = [])
@@ -104,54 +117,51 @@ class Config extends \Wei\Config
         return $data;
     }
 
+    public function getServers()
+    {
+        // TODO 改为servers
+        return require '.rocketeer/servers.php';
+    }
+
     /**
      * @return array
      */
-    public function getServerConfigs()
+    public function getServerOptions()
     {
-        $data = [];
-        $data[] = [
+        $servers = $this->getServers();
+
+        $options = [];
+        $options[] = [
             'name' => '全部',
             'value' => '',
         ];
 
-        foreach ($this->servers as $server) {
-            $key = $this->getKey($server);
-            $data[] = [
+        foreach ($servers as $key => $server) {
+            $options[] = [
                 'name' => $key,
                 'value' => $key,
             ];
         }
 
-        return $data;
-    }
-
-    protected function getKey($server)
-    {
-        if (isset($server['options']['host'])) {
-            return $server['options']['host'];
-        }
-
-        return $server['adapter'];
+        return $options;
     }
 
     protected function writeConfigFile($data)
     {
         $errors = [];
-        foreach ($this->servers as $server) {
+        foreach ($this->getServers() as $serverId => $server) {
             // 没有该服务器的配置则跳过
-            $key = $this->getKey($server);
-            if (!isset($data[$key])) {
+            if (!isset($data[$serverId]) || !$data[$serverId]) {
                 continue;
             }
 
             $filesystem = $this->createFilesystem($server);
             try {
-                $result = $filesystem->put($this->configFile, $this->generateContent($data[$key]));
+                $result = $filesystem->put($this->configFile, $this->generateContent($data[$serverId]));
                 if (!$result) {
                     $errors[] = $this->err([
                         'message' => '写入失败',
-                        'server' => $key,
+                        'serverId' => $serverId,
                     ]);
                 }
             } catch (\LogicException $e) {
