@@ -17,6 +17,7 @@
           <th>名称</th>
           <th>类型</th>
           <th>值</th>
+          <th>注释</th>
           <th>最后修改时间</th>
           <th class="t-6">操作</th>
         </tr>
@@ -64,6 +65,9 @@
         },
         {
           data: 'value'
+        },
+        {
+          data: 'comment'
         },
         {
           data: 'updated_at'

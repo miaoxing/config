@@ -50,7 +50,17 @@
         </label>
 
         <div class="col-lg-4">
-          <input type="text" class="form-control" name="value" id="value" required>
+          <textarea class="form-control" name="value" id="value" required></textarea>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-lg-2 control-label" for="comment">
+          注释
+        </label>
+
+        <div class="col-lg-4">
+          <input type="text" class="form-control" name="comment" id="comment">
         </div>
       </div>
 
