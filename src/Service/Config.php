@@ -159,9 +159,30 @@ class Config extends \Wei\Config
         return $options;
     }
 
+    /**
+     * 检测数据的类型
+     *
+     * @param mixed $value
+     * @return int
+     */
     public function detectType($value)
     {
         return $this->typeMap[gettype($value)];
+    }
+
+    /**
+     * 转换数据为可存储的字符串
+     *
+     * @param mixed $value
+     * @return string
+     */
+    public function encode($value)
+    {
+        if (!is_scalar($value)) {
+            return json_encode($value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        }
+
+        return $value;
     }
 
     protected function writeConfigFile($data)

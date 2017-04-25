@@ -99,7 +99,7 @@ class Configs extends BaseController
             $configs[] = wei()->configRecord()
                 ->findOrInit(['name' => $req['name'] . '.' . $name])
                 ->fromArray([
-                    'value' => $value,
+                    'value' => wei()->config->encode($value),
                     'type' => wei()->config->detectType($value),
                 ]);
         }
