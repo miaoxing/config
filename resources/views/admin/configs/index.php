@@ -85,8 +85,12 @@
     $recordTable.deletable();
 
     $('.js-publish').click(function () {
-      $.post($.url('admin/configs/publish.json'), function (ret) {
-        $.msg(ret);
+      $.ajax({
+        url: $.url('admin/configs/publish.json'),
+        loading: true,
+        success: function (ret) {
+          $.msg(ret);
+        }
       });
     });
   });
