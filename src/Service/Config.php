@@ -23,7 +23,7 @@ class Config extends \Wei\Config
      *
      * @var string
      */
-    protected $configFile = 'data/cache/config.php';
+    protected $configFile = 'data/config.php';
 
     /**
      * 写入配置文件的服务器
