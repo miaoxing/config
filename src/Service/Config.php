@@ -198,6 +198,6 @@ class Config extends \Wei\Config
 
     protected function generateContent($data)
     {
-        return "<?php\n\nreturn " . var_export($data, true) . ';';
+        return "<?php\n\nreturn " . var_export($data, true) . ";\n";
     }
 }
