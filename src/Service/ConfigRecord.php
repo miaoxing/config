@@ -37,6 +37,16 @@ class ConfigRecord extends BaseModel
         ],
     ];
 
+    /**
+     * @var string
+     */
+    protected $encoder = 'base64_encode';
+
+    /**
+     * @var string
+     */
+    protected $decoder = 'base64_decode';
+
     protected $table = 'configs';
 
     protected $providers = [
@@ -57,6 +67,27 @@ class ConfigRecord extends BaseModel
     public function getPhpValue()
     {
         return $this->covert($this['value'], $this['type']);
+    }
+
+    public function afterFind()
+    {
+        parent::afterFind();
+
+        $this['value'] = call_user_func($this->decoder, $this['value']);
+    }
+
+    public function beforeSave()
+    {
+        parent::beforeSave();
+
+        $this['value'] = call_user_func($this->encoder, $this['value']);
+    }
+
+    public function afterSave()
+    {
+        parent::afterSave();
+
+        $this['value'] = call_user_func($this->decoder, $this['value']);
     }
 
     /**
