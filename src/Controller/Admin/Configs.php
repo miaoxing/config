@@ -15,7 +15,7 @@ class Configs extends BaseController
         'new,create' => '添加',
         'edit,update' => '编辑',
         'destroy' => '删除',
-        'editBatch,updateBatch' => '批量更新'
+        'editBatch,updateBatch' => '批量更新',
     ];
 
     protected $displayPageHeader = true;
