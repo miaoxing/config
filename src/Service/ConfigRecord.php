@@ -19,6 +19,8 @@ class ConfigRecord extends BaseModel
 
     const TYPE_ARRAY = 4;
 
+    const TYPE_NULL = 5;
+
     protected $typeTable = [
         self::TYPE_STRING => [
             'text' => '字符串',
@@ -34,6 +36,9 @@ class ConfigRecord extends BaseModel
         ],
         self::TYPE_ARRAY => [
             'text' => '数组',
+        ],
+        self::TYPE_NULL => [
+            'text' => 'NULL',
         ],
     ];
 

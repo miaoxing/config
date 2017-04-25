@@ -37,6 +37,20 @@ class Config extends \Wei\Config
     ];
 
     /**
+     * @var array
+     */
+    protected $typeMap = [
+        'string' => ConfigRecord::TYPE_STRING,
+        'boolean' => ConfigRecord::TYPE_BOOL,
+        'integer' => ConfigRecord::TYPE_INT,
+        'double' => ConfigRecord::TYPE_FLOAT,
+        'array' => ConfigRecord::TYPE_ARRAY,
+        'object' => ConfigRecord::TYPE_ARRAY,
+        'resource' => ConfigRecord::TYPE_INT,
+        'NULL' => ConfigRecord::TYPE_NULL,
+    ];
+
+    /**
      * 不允许的配置名称
      *
      * @var array
@@ -143,6 +157,11 @@ class Config extends \Wei\Config
         }
 
         return $options;
+    }
+
+    public function detectType($value)
+    {
+        return $this->typeMap[gettype($value)];
     }
 
     protected function writeConfigFile($data)

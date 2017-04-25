@@ -15,6 +15,7 @@ class Configs extends BaseController
         'new,create' => '添加',
         'edit,update' => '编辑',
         'destroy' => '删除',
+        'editBatch,updateBatch' => '批量更新'
     ];
 
     protected $displayPageHeader = true;
@@ -56,6 +57,11 @@ class Configs extends BaseController
         return $this->editAction($req);
     }
 
+    public function editBatchAction($req)
+    {
+        return get_defined_vars();
+    }
+
     public function editAction($req)
     {
         $config = wei()->configRecord()->findId($req['id']);
@@ -76,6 +82,33 @@ class Configs extends BaseController
         return $this->suc([
             'data' => $config,
         ]);
+    }
+
+    public function updateBatchAction($req)
+    {
+        $reqConfigs = json_decode($req['configs'], true);
+        if (json_last_error()) {
+            return $this->err('解析JSON失败:' . json_last_error_msg());
+        }
+        if (!is_array($reqConfigs)) {
+            return $this->err('值必需是JSON数组');
+        }
+
+        $configs = wei()->configRecord();
+        foreach ($reqConfigs as $name => $value) {
+            $configs[] = wei()->configRecord()
+                ->findOrInit(['name' => $req['name'] . '.' . $name])
+                ->fromArray([
+                    'value' => $value,
+                    'type' => wei()->config->detectType($value),
+                ]);
+        }
+
+        $configs->db->transactional(function () use ($configs) {
+            $configs->save();
+        });
+
+        return $this->suc();
     }
 
     public function destroyAction($req)
