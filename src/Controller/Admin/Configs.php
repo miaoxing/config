@@ -2,6 +2,7 @@
 
 namespace Miaoxing\Config\Controller\Admin;
 
+use Miaoxing\Config\Service\Config;
 use Miaoxing\Config\Service\ConfigRecord;
 use miaoxing\plugin\BaseController;
 use Wei\Request;
@@ -76,6 +77,10 @@ class Configs extends BaseController
 
     public function updateAction(Request $req)
     {
+        if (strpos($req['name'], Config::DELIMITER) === false) {
+            return $this->err('名称需包含分隔符(' . Config::DELIMITER . ')');
+        }
+
         $config = wei()->configRecord()->findId($req['id']);
         $config->save($req);
 
@@ -99,7 +104,7 @@ class Configs extends BaseController
             $configs[] = wei()->configRecord()
                 ->findOrInit([
                     'server' => $req['server'],
-                    'name' => $req['name'] . '.' . $name,
+                    'name' => $req['name'] . Config::DELIMITER . $name
                 ])
                 ->fromArray([
                     'value' => wei()->config->encode($value),

@@ -18,6 +18,8 @@ class Config extends \Wei\Config
 
     const SERVER_ALL = '';
 
+    const DELIMITER = '.';
+
     /**
      * 配置文件的路径
      *
@@ -124,7 +126,11 @@ class Config extends \Wei\Config
 
         /** @var ConfigRecord $config */
         foreach ($configs as $config) {
-            list($service, $option) = explode('.', $config['name']);
+            // 从右边的点(.)拆分为两部分,兼容a.b.c的等情况
+            $pos = strrpos($config['name'], static::DELIMITER);
+            $service = substr($config['name'], 0, $pos);
+            $option = substr($config['name'], $pos + 1);
+
             $data[$service][$option] = $config->getPhpValue();
         }
 
