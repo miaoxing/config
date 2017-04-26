@@ -3,7 +3,7 @@
 <?= $block('header-actions') ?>
 <a class="js-publish btn btn-default" href="javascript:;">发布配置</a>
 <a class="btn btn-success" href="<?= $url('admin/configs/new') ?>">添加配置</a>
-<a class="btn btn-success" href="<?= $url('admin/configs/edit-batch') ?>">批量更新</a>
+<a class="btn btn-success" href="<?= $url('admin/configs/edit-batch') ?>">批量更新配置</a>
 <?= $block->end() ?>
 
 <div class="row">

@@ -47,6 +47,7 @@
 
         <label class="col-lg-6 help-text" for="name">
           如 {"host":"127.0.0.1","username":"admin"}
+          <a href="http://php.fnlist.com/php/json_encode" target="_blank">PHP数组转JSON工具</a>
         </label>
       </div>
 
