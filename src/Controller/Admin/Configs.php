@@ -130,7 +130,7 @@ class Configs extends BaseController
 
     public function publishAction($req)
     {
-        $ret = wei()->config->publish();
+        $ret = wei()->config->publish($req['server']);
 
         return $ret;
     }

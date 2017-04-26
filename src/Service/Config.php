@@ -73,9 +73,10 @@ class Config extends \Wei\Config
     }
 
     /**
+     * @param string $publishServer 要发布的服务器名称,默认全部
      * @return array
      */
-    public function publish()
+    public function publish($publishServer = '')
     {
         $serverConfigs = $this->getServers();
 
@@ -115,10 +116,10 @@ class Config extends \Wei\Config
         }
 
         // 逐个服务器写入配置
-        return $this->writeConfigFile($plainConfigs);
+        return $this->writeConfigFile($plainConfigs, $publishServer);
     }
 
-    public function mergeConfig($configs, $data = [])
+    protected function mergeConfig($configs, $data = [])
     {
         if (!$configs) {
             return $data;
@@ -191,10 +192,32 @@ class Config extends \Wei\Config
         return $value;
     }
 
-    protected function writeConfigFile($data)
+    protected function filterServers($publishServer)
     {
+        $servers = $this->getServers();
+        if (!$publishServer) {
+            return $servers;
+        }
+
+        if (!isset($servers[$publishServer])) {
+            return [];
+        }
+
+        // 一组服务器的情况
+        if ($servers[$publishServer]['adapter'] == 'set') {
+            return array_intersect_key($servers, array_flip($servers[$publishServer]['servers']));
+        }
+
+        // 只有一台服务器的情况
+        return [$publishServer => $servers[$publishServer]];
+    }
+
+    protected function writeConfigFile($data, $publishServer)
+    {
+        $servers = $this->filterServers($publishServer);
+
         $errors = [];
-        foreach ($this->getServers() as $serverId => $server) {
+        foreach ($servers as $serverId => $server) {
             // 没有该服务器的配置则跳过
             if (!isset($data[$serverId]) || !$data[$serverId]) {
                 continue;
