@@ -33,7 +33,7 @@ class Config extends \Wei\Config
      * @var array
      */
     protected $servers = [
-        [
+        'local' => [
             'adapter' => 'local',
         ],
     ];
@@ -68,6 +68,11 @@ class Config extends \Wei\Config
     public function __construct(array $options = [])
     {
         parent::__construct($options);
+
+        // If the plugin service is not constructed, the service container can't set config for it
+        if (!$this->wei->isInstanced('config')) {
+            $this->wei->set('config', $this);
+        }
 
         $this->env->loadConfigFile($this->configFile);
     }
