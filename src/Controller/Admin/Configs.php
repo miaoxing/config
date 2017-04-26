@@ -97,7 +97,10 @@ class Configs extends BaseController
         $configs = wei()->configRecord();
         foreach ($reqConfigs as $name => $value) {
             $configs[] = wei()->configRecord()
-                ->findOrInit(['name' => $req['name'] . '.' . $name])
+                ->findOrInit([
+                    'server' => $req['server'],
+                    'name' => $req['name'] . '.' . $name
+                ])
                 ->fromArray([
                     'value' => wei()->config->encode($value),
                     'type' => wei()->config->detectType($value),
