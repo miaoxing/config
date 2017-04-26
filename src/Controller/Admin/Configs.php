@@ -104,7 +104,7 @@ class Configs extends BaseController
             $configs[] = wei()->configRecord()
                 ->findOrInit([
                     'server' => $req['server'],
-                    'name' => $req['name'] . Config::DELIMITER . $name
+                    'name' => $req['name'] . Config::DELIMITER . $name,
                 ])
                 ->fromArray([
                     'value' => wei()->config->encode($value),
