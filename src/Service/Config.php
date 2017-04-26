@@ -69,7 +69,7 @@ class Config extends \Wei\Config
     {
         parent::__construct($options);
 
-        // If the plugin service is not constructed, the service container can't set config for it
+        // If the config service is not constructed, the service container can't set config for it
         if (!$this->wei->isInstanced('config')) {
             $this->wei->set('config', $this);
         }
