@@ -8,7 +8,7 @@
   </button>
 
   <ul class="dropdown-menu">
-      <?php foreach (wei()->config->getServerOptions() as $option) : ?>
+    <?php foreach (wei()->config->getServerOptions() as $option) : ?>
     <li><a class="js-publish" href="javascript:;" data-server="<?= $option['value'] ?>"><?= $option['name'] ?></a></li>
     <?php endforeach ?>
   </ul>
