@@ -73,7 +73,7 @@
           data: 'name'
         },
         {
-          data: 'type_name'
+          data: 'typeName'
         },
         {
           data: 'value'
