@@ -82,7 +82,7 @@
           data: 'comment'
         },
         {
-          data: 'updated_at'
+          data: 'updatedAt'
         },
         {
           data: 'id',

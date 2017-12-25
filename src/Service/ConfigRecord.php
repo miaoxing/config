@@ -66,6 +66,8 @@ class ConfigRecord extends BaseModel
 
     protected $updatedByColumn = 'updated_by';
 
+    protected $camel = true;
+
     /**
      * @return mixed
      */
