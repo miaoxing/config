@@ -4,10 +4,12 @@ namespace Miaoxing\Config\Service;
 
 use miaoxing\plugin\BaseModel;
 use Miaoxing\Plugin\Constant;
+use Miaoxing\Plugin\Traits\CamelCase;
 
 class ConfigRecord extends BaseModel
 {
     use Constant;
+    use CamelCase;
 
     const TYPE_STRING = 0;
 
@@ -65,8 +67,6 @@ class ConfigRecord extends BaseModel
     protected $createdByColumn = 'created_by';
 
     protected $updatedByColumn = 'updated_by';
-
-    protected $camel = true;
 
     /**
      * @return mixed
