@@ -5,11 +5,13 @@ namespace Miaoxing\Config\Service;
 use miaoxing\plugin\BaseModel;
 use Miaoxing\Plugin\Constant;
 use Miaoxing\Plugin\Traits\CamelCase;
+use Miaoxing\Plugin\Traits\HasCast;
 
 class ConfigRecord extends BaseModel
 {
     use Constant;
     use CamelCase;
+    use HasCast;
 
     const TYPE_STRING = 0;
 
@@ -67,6 +69,15 @@ class ConfigRecord extends BaseModel
     protected $createdByColumn = 'created_by';
 
     protected $updatedByColumn = 'updated_by';
+
+    protected $casts = [
+        'id' => 'int',
+        'type' => 'int',
+        'created_by' => 'int',
+        'updated_by' => 'int',
+    ];
+
+    protected $toArrayV2 = true;
 
     /**
      * @return mixed
