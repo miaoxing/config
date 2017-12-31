@@ -4,14 +4,14 @@ namespace Miaoxing\Config\Service;
 
 use miaoxing\plugin\BaseModel;
 use Miaoxing\Plugin\Constant;
-use Miaoxing\Plugin\Traits\CamelCase;
-use Miaoxing\Plugin\Traits\HasCast;
+use Miaoxing\Plugin\Model\CamelCaseTrait;
+use Miaoxing\Plugin\Model\CastTrait;
 
 class ConfigRecord extends BaseModel
 {
     use Constant;
-    use CamelCase;
-    use HasCast;
+    use CamelCaseTrait;
+    use CastTrait;
 
     const TYPE_STRING = 0;
 
