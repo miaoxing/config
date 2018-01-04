@@ -3,19 +3,15 @@
 namespace Miaoxing\Config\Service;
 
 use Miaoxing\Config\Metadata\ConfigTrait;
-use Miaoxing\Plugin\BaseModel;
+use Miaoxing\Plugin\BaseModelV2;
 use Miaoxing\Plugin\Constant;
-use Miaoxing\Plugin\Model\CamelCaseTrait;
-use Miaoxing\Plugin\Model\CastTrait;
 
 /**
  * 配置模型
  */
-class ConfigModel extends BaseModel
+class ConfigModel extends BaseModelV2
 {
     use Constant;
-    use CamelCaseTrait;
-    use CastTrait;
     use ConfigTrait;
 
     const TYPE_STRING = 0;
@@ -62,20 +58,6 @@ class ConfigModel extends BaseModel
     protected $decoder = 'base64_decode';
 
     protected $table = 'configs';
-
-    protected $providers = [
-        'db' => 'app.db',
-    ];
-
-    protected $createdAtColumn = 'created_at';
-
-    protected $updatedAtColumn = 'updated_at';
-
-    protected $createdByColumn = 'created_by';
-
-    protected $updatedByColumn = 'updated_by';
-
-    protected $toArrayV2 = true;
 
     protected $virtual = [
         'type_label',
