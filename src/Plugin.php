@@ -2,7 +2,7 @@
 
 namespace Miaoxing\Config;
 
-use miaoxing\plugin\BasePlugin;
+use Miaoxing\Plugin\BasePlugin;
 
 class Plugin extends BasePlugin
 {
