@@ -3,7 +3,7 @@
 namespace Miaoxing\Config\Controller\Admin;
 
 use Miaoxing\Config\Service\Config;
-use Miaoxing\Config\Service\ConfigRecord;
+use Miaoxing\Config\Service\ConfigModel;
 use Miaoxing\Plugin\BaseController;
 use Wei\Request;
 
@@ -25,24 +25,15 @@ class Configs extends BaseController
     {
         switch ($req['_format']) {
             case 'json':
-                $configs = wei()->configRecord();
-
-                $configs
+                $configs = wei()->configModel()
                     ->desc('id')
                     ->limit($req['rows'])
                     ->page($req['page']);
 
-                // 数据
-                $data = [];
-                /** @var ConfigRecord $config */
-                foreach ($configs->findAll() as $config) {
-                    $data[] = $config->toArray() + [
-                        'typeName' => $config->getConstantValue('type', $config['type'], 'text'),
-                        ];
-                }
+                $configs->findAll();
 
                 return $this->suc([
-                    'data' => $data,
+                    'data' => $configs,
                     'page' => (int) $req['page'],
                     'rows' => (int) $req['rows'],
                     'records' => $configs->count(),
@@ -65,7 +56,7 @@ class Configs extends BaseController
 
     public function editAction($req)
     {
-        $config = wei()->configRecord()->findId($req['id']);
+        $config = wei()->configModel()->findId($req['id']);
 
         return get_defined_vars();
     }
@@ -81,7 +72,7 @@ class Configs extends BaseController
             return $this->err('名称需包含分隔符(' . Config::DELIMITER . ')');
         }
 
-        $config = wei()->configRecord()->findId($req['id']);
+        $config = wei()->configModel()->findId($req['id']);
         $config->save($req);
 
         return $this->suc([
@@ -99,9 +90,9 @@ class Configs extends BaseController
             return $this->err('值必需是JSON数组');
         }
 
-        $configs = wei()->configRecord();
+        $configs = wei()->configModel();
         foreach ($reqConfigs as $name => $value) {
-            $configs[] = wei()->configRecord()
+            $configs[] = wei()->configModel()
                 ->findOrInit([
                     'server' => $req['server'],
                     'name' => $req['name'] . Config::DELIMITER . $name,
@@ -121,7 +112,7 @@ class Configs extends BaseController
 
     public function destroyAction($req)
     {
-        $config = wei()->configRecord()->findOneById($req['id']);
+        $config = wei()->configModel()->findOneById($req['id']);
 
         $config->destroy();
 

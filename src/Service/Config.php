@@ -2,6 +2,7 @@
 
 namespace Miaoxing\Config\Service;
 
+use Guzzle\Common\Exception\InvalidArgumentException;
 use Wei\Env;
 use Exception;
 use League\Flysystem\Adapter\Local;
@@ -10,6 +11,8 @@ use League\Flysystem\Filesystem;
 use Wei\RetTrait;
 
 /**
+ * 配置服务
+ *
  * @property Env $env
  */
 class Config extends \Wei\Config
@@ -42,14 +45,14 @@ class Config extends \Wei\Config
      * @var array
      */
     protected $typeMap = [
-        'string' => ConfigRecord::TYPE_STRING,
-        'boolean' => ConfigRecord::TYPE_BOOL,
-        'integer' => ConfigRecord::TYPE_INT,
-        'double' => ConfigRecord::TYPE_FLOAT,
-        'array' => ConfigRecord::TYPE_ARRAY,
-        'object' => ConfigRecord::TYPE_ARRAY,
-        'resource' => ConfigRecord::TYPE_INT,
-        'NULL' => ConfigRecord::TYPE_NULL,
+        'string' => ConfigModel::TYPE_STRING,
+        'boolean' => ConfigModel::TYPE_BOOL,
+        'integer' => ConfigModel::TYPE_INT,
+        'double' => ConfigModel::TYPE_FLOAT,
+        'array' => ConfigModel::TYPE_ARRAY,
+        'object' => ConfigModel::TYPE_ARRAY,
+        'resource' => ConfigModel::TYPE_INT,
+        'NULL' => ConfigModel::TYPE_NULL,
     ];
 
     /**
@@ -86,7 +89,7 @@ class Config extends \Wei\Config
         $serverConfigs = $this->getServers();
 
         // 获取所有配置
-        $configs = wei()->configRecord()->findAll();
+        $configs = wei()->configModel()->findAll();
 
         // 初始化服务器数组,确保每个服务器都会更新
         $servers = [
@@ -130,7 +133,7 @@ class Config extends \Wei\Config
             return $data;
         }
 
-        /** @var ConfigRecord $config */
+        /** @var ConfigModel $config */
         foreach ($configs as $config) {
             // 从右边的点(.)拆分为两部分,兼容a.b.c的等情况
             $pos = strrpos($config['name'], static::DELIMITER);

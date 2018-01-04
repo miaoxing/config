@@ -2,16 +2,21 @@
 
 namespace Miaoxing\Config\Service;
 
+use Miaoxing\Config\Metadata\ConfigTrait;
 use Miaoxing\Plugin\BaseModel;
 use Miaoxing\Plugin\Constant;
 use Miaoxing\Plugin\Model\CamelCaseTrait;
 use Miaoxing\Plugin\Model\CastTrait;
 
-class ConfigRecord extends BaseModel
+/**
+ * 配置模型
+ */
+class ConfigModel extends BaseModel
 {
     use Constant;
     use CamelCaseTrait;
     use CastTrait;
+    use ConfigTrait;
 
     const TYPE_STRING = 0;
 
@@ -27,22 +32,22 @@ class ConfigRecord extends BaseModel
 
     protected $typeTable = [
         self::TYPE_STRING => [
-            'text' => '字符串',
+            'label' => '字符串',
         ],
         self::TYPE_BOOL => [
-            'text' => '布尔值',
+            'label' => '布尔值',
         ],
         self::TYPE_INT => [
-            'text' => '整数',
+            'label' => '整数',
         ],
         self::TYPE_FLOAT => [
-            'text' => '小数',
+            'label' => '小数',
         ],
         self::TYPE_ARRAY => [
-            'text' => '数组',
+            'label' => '数组',
         ],
         self::TYPE_NULL => [
-            'text' => 'NULL',
+            'label' => 'NULL',
         ],
     ];
 
@@ -70,14 +75,16 @@ class ConfigRecord extends BaseModel
 
     protected $updatedByColumn = 'updated_by';
 
-    protected $casts = [
-        'id' => 'int',
-        'type' => 'int',
-        'created_by' => 'int',
-        'updated_by' => 'int',
+    protected $toArrayV2 = true;
+
+    protected $virtual = [
+        'type_label',
     ];
 
-    protected $toArrayV2 = true;
+    protected function getTypeLabelAttribute()
+    {
+        return $this->getConstantLabel('type', $this['type']);
+    }
 
     /**
      * @return mixed
