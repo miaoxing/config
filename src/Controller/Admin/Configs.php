@@ -4,7 +4,7 @@ namespace Miaoxing\Config\Controller\Admin;
 
 use Miaoxing\Config\Service\Config;
 use Miaoxing\Config\Service\ConfigRecord;
-use miaoxing\plugin\BaseController;
+use Miaoxing\Plugin\BaseController;
 use Wei\Request;
 
 class Configs extends BaseController
