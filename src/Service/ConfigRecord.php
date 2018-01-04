@@ -2,7 +2,7 @@
 
 namespace Miaoxing\Config\Service;
 
-use miaoxing\plugin\BaseModel;
+use Miaoxing\Plugin\BaseModel;
 use Miaoxing\Plugin\Constant;
 use Miaoxing\Plugin\Model\CamelCaseTrait;
 use Miaoxing\Plugin\Model\CastTrait;
