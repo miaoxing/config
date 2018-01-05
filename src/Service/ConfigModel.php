@@ -57,8 +57,6 @@ class ConfigModel extends BaseModelV2
      */
     protected $decoder = 'base64_decode';
 
-    protected $table = 'configs';
-
     protected $virtual = [
         'type_label',
     ];
