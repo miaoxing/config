@@ -66,33 +66,22 @@ class ConfigModel extends BaseModelV2
         return $this->getConstantLabel('type', $this['type']);
     }
 
+    protected function getValueAttribute()
+    {
+        return call_user_func($this->decoder, $this->data['value']);
+    }
+
+    protected function setValueAttribute($value)
+    {
+        $this->data['value'] = call_user_func($this->encoder, $value);
+    }
+
     /**
      * @return mixed
      */
     public function getPhpValue()
     {
         return $this->covert($this['value'], $this['type']);
-    }
-
-    public function afterFind()
-    {
-        parent::afterFind();
-
-        $this['value'] = call_user_func($this->decoder, $this['value']);
-    }
-
-    public function beforeSave()
-    {
-        parent::beforeSave();
-
-        $this['value'] = call_user_func($this->encoder, $this['value']);
-    }
-
-    public function afterSave()
-    {
-        parent::afterSave();
-
-        $this['value'] = call_user_func($this->decoder, $this['value']);
     }
 
     /**
