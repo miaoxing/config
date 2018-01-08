@@ -2,24 +2,17 @@
 
 namespace Miaoxing\Config\Service;
 
-use Guzzle\Common\Exception\InvalidArgumentException;
-use Wei\Env;
-use Exception;
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Sftp\SftpAdapter;
-use League\Flysystem\Filesystem;
+use Wei\Cache;
 use Wei\RetTrait;
 
 /**
  * 配置服务
  *
- * @property Env $env
+ * @property Cache cache
  */
 class Config extends \Wei\Config
 {
     use RetTrait;
-
-    const SERVER_ALL = '';
 
     const DELIMITER = '.';
 
@@ -28,18 +21,7 @@ class Config extends \Wei\Config
      *
      * @var string
      */
-    protected $configFile = 'data/config.php';
-
-    /**
-     * 写入配置文件的服务器
-     *
-     * @var array
-     */
-    protected $servers = [
-        'local' => [
-            'adapter' => 'local',
-        ],
-    ];
+    protected $configFile = 'data/configs/config.php';
 
     /**
      * @var array
@@ -65,73 +47,82 @@ class Config extends \Wei\Config
         'db',
     ];
 
-    /**
-     * {@inheritdoc}
-     */
-    public function __construct(array $options = [])
+    public function load()
     {
-        parent::__construct($options);
+        $configs = $this->getLocalConfigs();
 
-        // If the config service is not constructed, the service container can't set config for it
-        if (!$this->wei->isInstanced('config')) {
-            $this->wei->set('config', $this);
+        if ($this->needsUpdate($configs)) {
+            $configs = $this->writeConfigs();
         }
 
-        $this->env->loadConfigFile($this->configFile);
+        $this->wei->setConfig($configs);
     }
 
     /**
-     * @param string $publishServer 要发布的服务器名称,默认全部
      * @return array
      */
-    public function publish($publishServer = '')
+    public function publish()
     {
-        $serverConfigs = $this->getServers();
+        $this->updateVersion();
 
-        // 获取所有配置
-        $configs = wei()->configModel()->findAll();
+        $this->writeConfigs();
 
-        // 初始化服务器数组,确保每个服务器都会更新
-        $servers = [
-            static::SERVER_ALL => [],
-        ];
-        foreach ($serverConfigs as $name => $set) {
-            if ($set['adapter'] === 'set') {
-                continue;
-            }
-            $servers[$name] = [];
-        }
-
-        // 按服务器和集群对配置分组
-        foreach ($configs as $config) {
-            if ($serverConfigs[$config['server']]['adapter'] === 'set') {
-                foreach ($serverConfigs[$config['server']]['servers'] as $serverId) {
-                    $servers[$serverId][] = $config;
-                }
-            } else {
-                $servers[$config['server']][] = $config;
-            }
-        }
-
-        // 生成全局配置
-        $allConfig = $this->mergeConfig($servers[static::SERVER_ALL]);
-
-        // 附加服务器自己的配置
-        $plainConfigs = [];
-        unset($servers[static::SERVER_ALL]);
-        foreach ($servers as $server => $configs) {
-            $plainConfigs[$server] = $this->mergeConfig($configs, $allConfig);
-        }
-
-        // 逐个服务器写入配置
-        return $this->writeConfigFile($plainConfigs, $publishServer);
+        return $this->suc();
     }
 
-    protected function mergeConfig($configs, $data = [])
+    public function writeConfigs()
     {
-        if (!$configs) {
-            return $data;
+        $configs = $this->wei->configModel()->findAll();
+        $configs = $this->generateConfigs($configs);
+
+        file_put_contents($this->configFile, $this->generateContent($configs));
+
+        return $configs;
+    }
+
+    protected function getVersion()
+    {
+        $version = $this->cache->get('config.version', function () {
+            return $this->wei->configModel()->findOrInit('config.version')->getPhpValue();
+        });
+
+        if (!$version) {
+            $version = $this->updateVersion();
         }
+
+        return $version;
+    }
+
+    protected function updateVersion()
+    {
+        $versionConfig = wei()->configModel()->findOrInit(['name' => 'config.version']);
+        $versionConfig->save(['value' => date('Y-m-d H:i:s')]);
+        $this->cache->set('config.version', $versionConfig['value']);
+
+        return $versionConfig['value'];
+    }
+
+    protected function getLocalConfigs()
+    {
+        if (is_file($this->configFile)) {
+            return require $this->configFile;
+        } else {
+            return [];
+        }
+    }
+
+    protected function needsUpdate(array $configs)
+    {
+        if (!isset($configs['config']['version'])) {
+            return true;
+        }
+
+        return $configs['config']['version'] < $this->getVersion();
+    }
+
+    protected function generateConfigs($configs)
+    {
+        $data = [];
 
         /** @var ConfigModel $config */
         foreach ($configs as $config) {
@@ -144,34 +135,6 @@ class Config extends \Wei\Config
         }
 
         return $data;
-    }
-
-    public function getServers()
-    {
-        return $this->servers;
-    }
-
-    /**
-     * @return array
-     */
-    public function getServerOptions()
-    {
-        $servers = $this->getServers();
-
-        $options = [];
-        $options[] = [
-            'name' => '全部',
-            'value' => '',
-        ];
-
-        foreach ($servers as $key => $server) {
-            $options[] = [
-                'name' => $key,
-                'value' => $key,
-            ];
-        }
-
-        return $options;
     }
 
     /**
@@ -198,79 +161,6 @@ class Config extends \Wei\Config
         }
 
         return $value;
-    }
-
-    protected function filterServers($publishServer)
-    {
-        $servers = $this->getServers();
-        if (!$publishServer) {
-            return $servers;
-        }
-
-        if (!isset($servers[$publishServer])) {
-            return [];
-        }
-
-        // 一组服务器的情况
-        if ($servers[$publishServer]['adapter'] == 'set') {
-            return array_intersect_key($servers, array_flip($servers[$publishServer]['servers']));
-        }
-
-        // 只有一台服务器的情况
-        return [$publishServer => $servers[$publishServer]];
-    }
-
-    protected function writeConfigFile($data, $publishServer)
-    {
-        $servers = $this->filterServers($publishServer);
-
-        $errors = [];
-        foreach ($servers as $serverId => $server) {
-            // 没有该服务器的配置则跳过
-            if (!isset($data[$serverId]) || !$data[$serverId]) {
-                continue;
-            }
-
-            $filesystem = $this->createFilesystem($server);
-            try {
-                $result = $filesystem->put($this->configFile, $this->generateContent($data[$serverId]));
-                if (!$result) {
-                    $errors[] = $this->err([
-                        'message' => '写入失败',
-                        'serverId' => $serverId,
-                    ]);
-                }
-            } catch (\LogicException $e) {
-                $errors[] = $this->err([
-                    'message' => '写入失败:' . $e->getMessage(),
-                    'localIp' => wei()->request->getServer('SERVER_ADDR'),
-                ]);
-            }
-        }
-
-        if ($errors) {
-            return $this->err('写入失败', ['errors' => $errors]);
-        }
-
-        return $this->suc();
-    }
-
-    protected function createFilesystem($server)
-    {
-        switch ($server['adapter']) {
-            case 'local':
-                $adapter = new Local(realpath(''));
-                break;
-
-            case 'sftp':
-                $adapter = new SftpAdapter($server['options']);
-                break;
-
-            default:
-                throw new Exception(sprintf('Unsupported adapter "%s"', $server['type']));
-        }
-
-        return new Filesystem($adapter);
     }
 
     protected function generateContent($data)

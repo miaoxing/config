@@ -74,6 +74,10 @@ class ConfigModel extends BaseModelV2
     protected function setValueAttribute($value)
     {
         $this->data['value'] = call_user_func($this->encoder, $value);
+
+        $name = 'value';
+        $this->changedData[$name] = isset($this->data[$name]) ? $this->data[$name] : null;
+        $this->isChanged = true;
     }
 
     /**

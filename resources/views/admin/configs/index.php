@@ -1,18 +1,7 @@
 <?php $view->layout() ?>
 
 <?= $block('header-actions') ?>
-<div class="btn-group">
-  <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">
-    发布配置
-    <span class="fa fa-caret-down icon-on-right"></span>
-  </button>
-
-  <ul class="dropdown-menu">
-    <?php foreach (wei()->config->getServerOptions() as $option) : ?>
-    <li><a class="js-publish" href="javascript:;" data-server="<?= $option['value'] ?>"><?= $option['name'] ?></a></li>
-    <?php endforeach ?>
-  </ul>
-</div>
+<a class="js-publish btn btn-default" href="javascript:">发布配置</a>
 <a class="btn btn-success" href="<?= $url('admin/configs/new') ?>">添加配置</a>
 <a class="btn btn-success" href="<?= $url('admin/configs/edit-batch') ?>">批量更新配置</a>
 <?= $block->end() ?>
@@ -25,7 +14,6 @@
       <table class="js-config-table record-table table table-bordered table-hover">
         <thead>
         <tr>
-          <th>服务器</th>
           <th>名称</th>
           <th>类型</th>
           <th>值</th>
@@ -64,12 +52,6 @@
       },
       columns: [
         {
-          data: 'server',
-          render: function (data) {
-            return data || '全部';
-          }
-        },
-        {
           data: 'name'
         },
         {
@@ -100,9 +82,6 @@
       $.ajax({
         url: $.url('admin/configs/publish.json'),
         loading: true,
-        data: {
-          server: $(this).data('server')
-        },
         success: function (ret) {
           $.msg(ret);
         }

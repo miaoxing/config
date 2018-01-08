@@ -17,6 +17,7 @@ class Configs extends BaseController
         'edit,update' => '编辑',
         'destroy' => '删除',
         'editBatch,updateBatch' => '批量更新',
+        'publish' => '发布',
     ];
 
     protected $displayPageHeader = true;
@@ -119,9 +120,9 @@ class Configs extends BaseController
         return $this->suc();
     }
 
-    public function publishAction($req)
+    public function publishAction()
     {
-        $ret = wei()->config->publish($req['server']);
+        $ret = wei()->config->publish();
 
         return $ret;
     }
