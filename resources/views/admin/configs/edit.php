@@ -74,14 +74,15 @@
 <script>
   require([
     'form',
-    'validator'
+    'validator',
+    'plugins/app/libs/jquery.populate/jquery.populate'
   ], function (form) {
     form.toOptions($('.js-type'), <?= json_encode(wei()->configModel->getConstants('type')) ?>, 'id', 'label');
 
     var config = <?= $config->toJson() ?>;
 
     $('.js-config-form')
-      .loadJSON(config)
+      .populate(config)
       .ajaxForm({
         url: $.url('admin/configs/create'),
         dataType: 'json',
