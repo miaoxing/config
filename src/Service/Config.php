@@ -4,11 +4,13 @@ namespace Miaoxing\Config\Service;
 
 use Wei\Cache;
 use Wei\RetTrait;
+use Wei\Wei;
 
 /**
  * 配置服务
  *
  * @property Cache cache
+ * @property Wei|\MiaoxingDoc\Config\AutoComplete $wei
  */
 class Config extends \Wei\Config
 {
@@ -21,7 +23,7 @@ class Config extends \Wei\Config
      *
      * @var string
      */
-    protected $configFile = 'data/configs/config.php';
+    protected $configFile = 'data/config-v2.php';
 
     /**
      * @var array
@@ -95,7 +97,7 @@ class Config extends \Wei\Config
 
     protected function updateVersion()
     {
-        $versionConfig = wei()->configModel()->findOrInit(['name' => 'config.version']);
+        $versionConfig =$this->wei->configModel()->findOrInit(['name' => 'config.version']);
         $versionConfig->save(['value' => date('Y-m-d H:i:s')]);
         $this->cache->set('config.version', $versionConfig['value']);
 
