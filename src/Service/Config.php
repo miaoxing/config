@@ -85,7 +85,7 @@ class Config extends \Wei\Config
     protected function getVersion()
     {
         $version = $this->cache->get('config.version', function () {
-            return $this->wei->configModel()->findOrInit('config.version')->getPhpValue();
+            return $this->wei->configModel()->findOrInit(['name' => 'config.version'])->getPhpValue();
         });
 
         if (!$version) {
