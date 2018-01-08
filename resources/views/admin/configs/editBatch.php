@@ -7,19 +7,6 @@
 <div class="row">
   <div class="col-xs-12">
     <form class="form-horizontal js-config-form" role="form" method="post">
-
-      <div class="form-group">
-        <label class="col-lg-2 control-label" for="server">
-          <span class="text-warning">*</span>
-          服务器
-        </label>
-
-        <div class="col-lg-4">
-          <select class="js-server form-control" type="text" name="server" id="server">
-          </select>
-        </div>
-      </div>
-
       <div class="form-group">
         <label class="col-lg-2 control-label" for="name">
           <span class="text-warning">*</span>
@@ -76,8 +63,6 @@
     'form',
     'validator'
   ], function (form) {
-    form.toOptions($('.js-server'), <?= json_encode(wei()->config->getServerOptions()) ?>, 'value', 'name');
-
     $('.js-config-form')
       .ajaxForm({
         url: $.url('admin/configs/update-batch'),

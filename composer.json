@@ -6,9 +6,7 @@
   ],
   "license": "MIT",
   "require": {
-    "miaoxing/app": "dev-master@dev",
-    "league/flysystem": "1.*",
-    "league/flysystem-sftp": "1.*"
+    "miaoxing/app": "dev-master@dev"
   },
   "autoload": {
     "psr-4": {
