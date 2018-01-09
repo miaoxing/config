@@ -8,6 +8,8 @@ use Miaoxing\Plugin\Constant;
 
 /**
  * 配置模型
+ *
+ * @property mixed $phpValue
  */
 class ConfigModel extends BaseModelV2
 {
@@ -26,6 +28,9 @@ class ConfigModel extends BaseModelV2
 
     const TYPE_NULL = 5;
 
+    /**
+     * @var array
+     */
     protected $typeTable = [
         self::TYPE_STRING => [
             'label' => '字符串',
@@ -48,40 +53,73 @@ class ConfigModel extends BaseModelV2
     ];
 
     /**
-     * @var string
+     * @var array
      */
-    protected $encoder = 'base64_encode';
+    protected $defaultCasts = [
+        'value' => 'mixed',
+    ];
 
     /**
-     * @var string
+     * @var callable
      */
-    protected $decoder = 'base64_decode';
+    protected $encoder = 'serialize';
 
+    /**
+     * @var callable
+     */
+    protected $decoder = 'unserialize';
+
+    /**
+     * @var array
+     */
     protected $virtual = [
         'type_label',
     ];
 
+    /**
+     * 类型名称
+     *
+     * @return string
+     */
     protected function getTypeLabelAttribute()
     {
-        return $this->getConstantLabel('type', $this['type']);
+        return wei()->configModel->getConstantLabel('type', $this['type']);
     }
 
+    /**
+     * 展示的值
+     *
+     * @return mixed
+     */
     protected function getValueAttribute()
     {
-        return call_user_func($this->decoder, $this->data['value']);
+        $value = $this->getPhpValue();
+
+        if (is_scalar($value) || $value === null) {
+            return $value;
+        }
+
+        return json_encode($value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
+    /**
+     * @param mixed $value
+     * @throws \Exception
+     */
     protected function setValueAttribute($value)
     {
+        $value = $this->convert($value, $this->get('type'));
         $this->data['value'] = call_user_func($this->encoder, $value);
     }
 
     /**
+     * 获取实际使用的PHP变量值
+     *
      * @return mixed
      */
     public function getPhpValue()
     {
-        return $this->covert($this['value'], $this['type']);
+        return $this->data['value'] ? call_user_func($this->decoder, $this->data['value']) : null;
     }
 
     /**
@@ -89,7 +127,7 @@ class ConfigModel extends BaseModelV2
      * @param int $type
      * @return mixed
      */
-    protected function covert($value, $type)
+    public function convert($value, $type)
     {
         switch ($type) {
             case static::TYPE_STRING:

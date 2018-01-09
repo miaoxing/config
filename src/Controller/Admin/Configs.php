@@ -29,9 +29,8 @@ class Configs extends BaseController
                 $configs = wei()->configModel()
                     ->desc('id')
                     ->limit($req['rows'])
-                    ->page($req['page']);
-
-                $configs->findAll();
+                    ->page($req['page'])
+                    ->findAll();
 
                 return $this->suc([
                     'data' => $configs,
@@ -96,8 +95,8 @@ class Configs extends BaseController
             $configs[] = wei()->configModel()
                 ->findOrInit(['name' => $req['name'] . Config::DELIMITER . $name])
                 ->fromArray([
-                    'value' => wei()->config->encode($value),
                     'type' => wei()->config->detectType($value),
+                    'value' => $value,
                 ]);
         }
 
