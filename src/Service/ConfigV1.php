@@ -3,10 +3,6 @@
 namespace Miaoxing\Config\Service;
 
 use Wei\Env;
-use Exception;
-use League\Flysystem\Adapter\Local;
-use League\Flysystem\Sftp\SftpAdapter;
-use League\Flysystem\Filesystem;
 use Wei\RetTrait;
 
 /**
