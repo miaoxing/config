@@ -8,8 +8,6 @@ use Miaoxing\Plugin\Constant;
 
 /**
  * 配置模型
- *
- * @property mixed $phpValue
  */
 class ConfigModel extends BaseModelV2
 {

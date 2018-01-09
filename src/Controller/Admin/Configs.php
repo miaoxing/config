@@ -68,43 +68,16 @@ class Configs extends BaseController
 
     public function updateAction(Request $req)
     {
-        if (strpos($req['name'], Config::DELIMITER) === false) {
-            return $this->err('名称需包含分隔符(' . Config::DELIMITER . ')');
-        }
+        $ret = wei()->config->createOrUpdate($req);
 
-        $config = wei()->configModel()->findId($req['id']);
-        $config->save($req);
-
-        return $this->suc([
-            'data' => $config,
-        ]);
+        return $ret;
     }
 
     public function updateBatchAction($req)
     {
-        $reqConfigs = json_decode($req['configs'], true);
-        if (json_last_error()) {
-            return $this->err('解析JSON失败:' . json_last_error_msg());
-        }
-        if (!is_array($reqConfigs)) {
-            return $this->err('值必需是JSON数组');
-        }
+        $ret = wei()->config->updateBatch($req);
 
-        $configs = wei()->configModel();
-        foreach ($reqConfigs as $name => $value) {
-            $configs[] = wei()->configModel()
-                ->findOrInit(['name' => $req['name'] . Config::DELIMITER . $name])
-                ->fromArray([
-                    'type' => wei()->config->detectType($value),
-                    'value' => $value,
-                ]);
-        }
-
-        $configs->db->transactional(function () use ($configs) {
-            $configs->save();
-        });
-
-        return $this->suc();
+        return $ret;
     }
 
     public function destroyAction($req)
