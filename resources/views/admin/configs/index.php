@@ -84,6 +84,7 @@
         loading: true,
         success: function (ret) {
           $.msg(ret);
+          $recordTable.reload();
         }
       });
     });
