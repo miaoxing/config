@@ -5,6 +5,7 @@ namespace Miaoxing\Config\Service;
 use Miaoxing\Config\Metadata\ConfigTrait;
 use Miaoxing\Plugin\BaseModelV2;
 use Miaoxing\Plugin\Constant;
+use Miaoxing\Plugin\Model\SoftDeleteTrait;
 use stdClass;
 
 /**
@@ -14,6 +15,7 @@ class ConfigModel extends BaseModelV2
 {
     use Constant;
     use ConfigTrait;
+    use SoftDeleteTrait;
 
     const TYPE_STRING = 0;
 
