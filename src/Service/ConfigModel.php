@@ -26,6 +26,8 @@ class ConfigModel extends BaseModelV2
 
     const TYPE_NULL = 5;
 
+    const TYPE_EXPRESS = 6;
+
     /**
      * @var array
      */
@@ -47,6 +49,9 @@ class ConfigModel extends BaseModelV2
         ],
         self::TYPE_NULL => [
             'label' => 'NULL',
+        ],
+        self::TYPE_EXPRESS => [
+            'label' => '表达式',
         ],
     ];
 
