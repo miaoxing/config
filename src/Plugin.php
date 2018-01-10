@@ -13,8 +13,6 @@ class Plugin extends BasePlugin
 
     public function onAppInit()
     {
-        //$this->config->load();
-
         wei()->config->checkUpdate();
     }
 }
