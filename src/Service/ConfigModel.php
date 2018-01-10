@@ -130,7 +130,7 @@ class ConfigModel extends BaseModelV2
      * @param int $type
      * @return mixed
      */
-    public function convert($value, $type)
+    protected function convert($value, $type)
     {
         switch ($type) {
             case static::TYPE_STRING:
@@ -146,7 +146,7 @@ class ConfigModel extends BaseModelV2
                 return (bool) $value;
 
             case static::TYPE_ARRAY:
-                return json_decode($value, true);
+                return is_array($value) ? $value : json_decode($value, true);
 
             default:
                 return $value;
