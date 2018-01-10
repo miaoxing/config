@@ -103,6 +103,10 @@ class ConfigModel extends BaseModelV2
             return $value;
         }
 
+        if ($value instanceof stdClass && isset($value->express)) {
+            return $value->express;
+        }
+
         return json_encode($value, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     }
 
