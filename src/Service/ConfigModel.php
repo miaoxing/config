@@ -5,6 +5,7 @@ namespace Miaoxing\Config\Service;
 use Miaoxing\Config\Metadata\ConfigTrait;
 use Miaoxing\Plugin\BaseModelV2;
 use Miaoxing\Plugin\Constant;
+use stdClass;
 
 /**
  * 配置模型
@@ -147,6 +148,12 @@ class ConfigModel extends BaseModelV2
 
             case static::TYPE_ARRAY:
                 return is_array($value) ? $value : json_decode($value, true);
+
+            case static::TYPE_EXPRESS:
+                $object = new stdClass();
+                $object->express = (string) $value;
+
+                return $object;
 
             default:
                 return $value;
