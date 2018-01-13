@@ -68,7 +68,7 @@ class Configs extends BaseController
 
     public function updateAction(Request $req)
     {
-        $ret = wei()->config->store($req);
+        $ret = wei()->configModel()->store($req);
 
         return $ret;
     }

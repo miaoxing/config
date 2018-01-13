@@ -83,13 +83,31 @@ class ConfigModel extends BaseModelV2
     ];
 
     /**
+     * 保存一项配置
+     *
+     * @param array|\ArrayAccess $req
+     * @return array
+     */
+    public function store($req)
+    {
+        if (strpos($req['name'], Config::DELIMITER) === false) {
+            return $this->err('名称需包含分隔符(' . Config::DELIMITER . ')');
+        }
+
+        $this->findId($req['id']);
+        $this->save($req);
+
+        return $this->toRet();
+    }
+
+    /**
      * 类型名称
      *
      * @return string
      */
     protected function getTypeLabelAttribute()
     {
-        return wei()->configModel->getConstantLabel('type', $this['type']);
+        return $this->getConstantLabel('type', $this['type']);
     }
 
     /**
