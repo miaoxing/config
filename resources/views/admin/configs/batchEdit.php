@@ -65,7 +65,7 @@
   ], function (form) {
     $('.js-config-form')
       .ajaxForm({
-        url: $.url('admin/configs/update-batch'),
+        url: $.url('admin/configs/batch-update'),
         dataType: 'json',
         beforeSubmit: function (arr, $form, options) {
           return $form.valid();

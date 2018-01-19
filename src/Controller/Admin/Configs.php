@@ -16,7 +16,7 @@ class Configs extends BaseController
         'new,create' => '添加',
         'edit,update' => '编辑',
         'destroy' => '删除',
-        'editBatch,updateBatch' => '批量更新',
+        'batchEdit,batchUpdate' => '批量更新',
         'publish' => '发布',
     ];
 
@@ -49,7 +49,7 @@ class Configs extends BaseController
         return $this->editAction($req);
     }
 
-    public function editBatchAction($req)
+    public function batchEditAction($req)
     {
         return get_defined_vars();
     }
@@ -73,9 +73,9 @@ class Configs extends BaseController
         return $ret;
     }
 
-    public function updateBatchAction($req)
+    public function batchUpdateAction($req)
     {
-        $ret = wei()->config->updateBatch($req);
+        $ret = wei()->config->batchUpdate($req);
 
         return $ret;
     }
