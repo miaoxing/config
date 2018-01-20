@@ -4,7 +4,7 @@ namespace Miaoxing\Config\Service;
 
 use Miaoxing\Config\Metadata\ConfigTrait;
 use Miaoxing\Plugin\BaseModelV2;
-use Miaoxing\Plugin\Constant;
+use Miaoxing\Plugin\ConstTrait;
 use Miaoxing\Plugin\Model\SoftDeleteTrait;
 use stdClass;
 
@@ -13,7 +13,7 @@ use stdClass;
  */
 class ConfigModel extends BaseModelV2
 {
-    use Constant;
+    use ConstTrait;
     use ConfigTrait;
     use SoftDeleteTrait;
 
@@ -107,7 +107,7 @@ class ConfigModel extends BaseModelV2
      */
     protected function getTypeLabelAttribute()
     {
-        return $this->getConstantLabel('type', $this['type']);
+        return $this->getConstLabel('type', $this['type']);
     }
 
     /**

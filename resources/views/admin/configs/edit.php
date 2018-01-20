@@ -77,7 +77,7 @@
     'validator',
     'plugins/app/libs/jquery.populate/jquery.populate'
   ], function (form) {
-    form.toOptions($('.js-type'), <?= json_encode(wei()->configModel->getConstants('type')) ?>, 'id', 'label');
+    form.toOptions($('.js-type'), <?= json_encode(wei()->configModel->getConsts('type')) ?>, 'id', 'label');
 
     var config = <?= $config->toJson() ?>;
 
