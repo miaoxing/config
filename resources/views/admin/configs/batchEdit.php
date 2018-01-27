@@ -57,7 +57,7 @@
   </div>
 </div>
 
-<?= $block('js') ?>
+<?= $block->js() ?>
 <script>
   require([
     'form',

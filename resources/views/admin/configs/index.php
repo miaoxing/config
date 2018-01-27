@@ -39,7 +39,7 @@
     data-href="<%= $.url('admin/configs/%s/destroy', id) %>">删除</a>
 </script>
 
-<?= $block('js') ?>
+<?= $block->js() ?>
 <script>
   require(['form', 'dataTable', 'template', 'jquery-deparam'], function (form) {
     $('.js-config-form').loadParams().update(function () {
