@@ -262,7 +262,7 @@ class Config extends \Wei\Config
     protected function getLocalConfigs()
     {
         if (is_file($file = $this->getConfigFile())) {
-            return require $file;
+            return (array) require $file;
         } else {
             return [];
         }
@@ -344,7 +344,7 @@ class Config extends \Wei\Config
      * @param mixed $var
      * @param string $indent
      * @return string
-     * @link Base on https://stackoverflow.com/questions/24316347/how-to-format-var-export-to-php5-4-array-syntax
+     * @see Base on https://stackoverflow.com/questions/24316347/how-to-format-var-export-to-php5-4-array-syntax
      */
     protected function varExport($var, $indent = '')
     {
