@@ -94,6 +94,13 @@ class ConfigModel extends BaseModelV2
             return $this->err('名称需包含分隔符(' . Config::DELIMITER . ')');
         }
 
+        if ($req['type'] == static::TYPE_ARRAY) {
+            json_decode($req['value']);
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                return $this->err('值需是JSON格式：' . json_last_error_msg());
+            }
+        }
+
         $this->findId($req['id']);
         $this->save($req);
 
