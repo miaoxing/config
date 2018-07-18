@@ -22,6 +22,8 @@ class Configs extends BaseController
 
     protected $displayPageHeader = true;
 
+    protected $hidePermission = true;
+
     public function indexAction($req)
     {
         switch ($req['_format']) {
