@@ -5,7 +5,7 @@
 <?= $block->end() ?>
 
 <div class="row">
-  <div class="col-xs-12">
+  <div class="col-12">
     <form class="form-horizontal js-config-form" role="form" method="post">
       <div class="form-group">
         <label class="col-lg-2 control-label" for="name">
@@ -41,7 +41,7 @@
       <div class="clearfix form-actions form-group">
         <input type="hidden" name="id" id="id">
 
-        <div class="col-lg-offset-2">
+        <div class="offset-lg-2">
           <button class="btn btn-primary" type="submit">
             <i class="fa fa-check bigger-110"></i>
             提交
