@@ -61,7 +61,7 @@
 <script>
   require([
     'form',
-    'validator'
+    'plugins/app/js/validation'
   ], function (form) {
     $('.js-config-form')
       .ajaxForm({

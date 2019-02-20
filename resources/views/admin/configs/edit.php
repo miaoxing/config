@@ -74,7 +74,7 @@
 <script>
   require([
     'form',
-    'validator',
+    'plugins/app/js/validation',
     'plugins/app/libs/jquery.populate/jquery.populate'
   ], function (form) {
     form.toOptions($('.js-type'), <?= json_encode(wei()->configModel->getConsts('type')) ?>, 'id', 'label');
