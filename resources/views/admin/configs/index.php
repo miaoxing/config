@@ -41,7 +41,7 @@
 
 <?= $block->js() ?>
 <script>
-  require(['form', 'plugins/admin/js/data-table', 'template', 'jquery-unparam'], function (form) {
+  require(['form', 'plugins/admin/js/data-table', 'template'], function (form) {
     $('.js-config-form').loadParams().update(function () {
       $recordTable.reload($(this).serialize(), false);
     });
