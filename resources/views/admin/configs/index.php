@@ -41,7 +41,7 @@
 
 <?= $block->js() ?>
 <script>
-  require(['form', 'plugins/admin/js/data-table', 'template'], function (form) {
+  require(['form', 'plugins/admin/js/data-table', plugins/app/libs/artTemplate/template.min], function (form) {
     $('.js-config-form').loadParams().update(function () {
       $recordTable.reload($(this).serialize(), false);
     });
