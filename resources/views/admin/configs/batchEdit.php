@@ -1,7 +1,7 @@
 <?php $view->layout() ?>
 
 <?= $block('header-actions') ?>
-<a class="btn btn-default pull-right" href="<?= $url('admin/configs') ?>">返回列表</a>
+<a class="btn btn-default float-right" href="<?= $url('admin/configs') ?>">返回列表</a>
 <?= $block->end() ?>
 
 <div class="row">
