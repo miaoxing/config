@@ -1,7 +1,7 @@
 <?php $view->layout() ?>
 
 <?= $block('header-actions') ?>
-<a class="btn btn-default float-right" href="<?= $url('admin/configs') ?>">返回列表</a>
+<a class="btn btn-secondary float-right" href="<?= $url('admin/configs') ?>">返回列表</a>
 <?= $block->end() ?>
 
 <div class="row">
@@ -47,7 +47,7 @@
             提交
           </button>
           &nbsp; &nbsp; &nbsp;
-          <a class="btn btn-default" href="<?= $url('admin/configs') ?>">
+          <a class="btn btn-secondary" href="<?= $url('admin/configs') ?>">
             <i class="fa fa-undo bigger-110"></i>
             返回列表
           </a>

@@ -1,7 +1,7 @@
 <?php $view->layout() ?>
 
 <?= $block('header-actions') ?>
-<a class="js-publish btn btn-default" href="javascript:">发布配置</a>
+<a class="js-publish btn btn-secondary" href="javascript:">发布配置</a>
 <a class="btn btn-success" href="<?= $url('admin/configs/new') ?>">添加配置</a>
 <a class="btn btn-success" href="<?= $url('admin/configs/batch-edit') ?>">批量更新配置</a>
 <?= $block->end() ?>
