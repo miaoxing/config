@@ -73,7 +73,7 @@
 <?= $block->js() ?>
 <script>
   require([
-    'form',
+    'plugins/admin/js/form',
     'plugins/app/js/validation',
     'plugins/app/libs/jquery.populate/jquery.populate'
   ], function (form) {

@@ -60,7 +60,7 @@
 <?= $block->js() ?>
 <script>
   require([
-    'form',
+    'plugins/admin/js/form',
     'plugins/app/js/validation'
   ], function (form) {
     $('.js-config-form')
