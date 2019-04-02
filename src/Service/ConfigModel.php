@@ -175,7 +175,7 @@ class ConfigModel extends BaseModelV2
                 return (float) $value;
 
             case static::TYPE_BOOL:
-                return (bool) $value;
+                return filter_var($value, FILTER_VALIDATE_BOOLEAN);
 
             case static::TYPE_ARRAY:
                 return is_array($value) ? $value : json_decode($value, true);
