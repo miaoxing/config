@@ -149,6 +149,19 @@ class Config extends \Wei\Config
     }
 
     /**
+     * 发布指定名称的配置，可用于用户更改配置
+     *
+     * @param mixed $configs
+     * @param array $validKeys
+     * @return array
+     */
+    public function publishKeys($configs, array $validKeys)
+    {
+        $configs = array_intersect_key((array) $configs, array_flip($validKeys));
+        return $this->publish($configs);
+    }
+
+    /**
      * 设置一项或多项配置的值
      *
      * @param string|array $name
@@ -159,7 +172,7 @@ class Config extends \Wei\Config
     {
         if (is_array($name)) {
             foreach ($name as $item => $value) {
-                $this->set($name, $value);
+                $this->set($item, $value);
             }
         } else {
             $model = $this->initModel()->findOrInit(['name' => $name]);
