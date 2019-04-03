@@ -133,12 +133,13 @@ class Config extends \Wei\Config
     /**
      * 发布配置,可选同时设置一些配置
      *
-     * @param array $data 要设置的配置
+     * @param string|array $name
+     * @param mixed $value
      * @return array
      */
-    public function publish(array $data = [])
+    public function publish($name = null, $value = null)
     {
-        $data && $this->set($data);
+        $name && $this->set($name, $value);
 
         $this->updateVersion();
 
@@ -161,12 +162,12 @@ class Config extends \Wei\Config
                 $this->set($name, $value);
             }
         } else {
-            $this->initModel()
-                ->findOrInit(['name' => $name])
-                ->save([
-                    'type' => $this->detectType($value),
-                    'value' => $value,
-                ]);
+            $model = $this->initModel()->findOrInit(['name' => $name]);
+            // NOTE: 新记录不能确定类型，使用传入的变量类型
+            if ($model->isNew()) {
+                $model->type = $this->detectType($value);
+            }
+            $model->save(['value' => $value]);
         }
 
         return $this;
