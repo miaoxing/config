@@ -1,5 +1,6 @@
 {
   "name": "miaoxing/config",
+  "type": "miaoxing-plugin",
   "description": "Miaoxing Config Plugin",
   "keywords": [
     "miaoxing", "config"
