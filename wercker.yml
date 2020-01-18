@@ -18,7 +18,7 @@ build:
     - script:
         name: check all rules
         code: |
-          bash vendor/miaoxing/plugin/build/build-wercker.sh --coverage 1
+          bash plugins/plugin/build/build-wercker.sh --coverage 1
   after-steps:
     - miaoxing/github-issue-notify:
         token: $GITHUB_ISSUE_NOTIFY_TOKEN
