@@ -2,6 +2,7 @@
 
 namespace Miaoxing\Config\Service;
 
+use Miaoxing\Services\Middleware\BaseMiddleware;
 use MiaoxingDoc\Config\AutoComplete;
 use Wei\Cache;
 use Wei\Env;
@@ -362,7 +363,7 @@ class Config extends \Wei\Config
      * @param mixed $var
      * @param string $indent
      * @return string
-     * @see Base on https://stackoverflow.com/questions/24316347/how-to-format-var-export-to-php5-4-array-syntax
+     * @see BaseMiddleware on https://stackoverflow.com/questions/24316347/how-to-format-var-export-to-php5-4-array-syntax
      */
     protected function varExport($var, $indent = '')
     {
