@@ -4,7 +4,7 @@ namespace Miaoxing\Config\Service;
 
 use Miaoxing\Config\Metadata\ConfigTrait;
 use Miaoxing\Plugin\BaseModelV2;
-use Miaoxing\Plugin\ConstTrait;
+use Miaoxing\Services\ConstTrait;
 use Miaoxing\Plugin\Model\SoftDeleteTrait;
 use stdClass;
 
