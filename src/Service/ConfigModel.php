@@ -4,8 +4,8 @@ namespace Miaoxing\Config\Service;
 
 use Miaoxing\Config\Metadata\ConfigTrait;
 use Miaoxing\Plugin\BaseModelV2;
-use Miaoxing\Services\ConstTrait;
 use Miaoxing\Plugin\Model\SoftDeleteTrait;
+use Miaoxing\Services\ConstTrait;
 use stdClass;
 
 /**
@@ -34,28 +34,14 @@ class ConfigModel extends BaseModelV2
     /**
      * @var array
      */
-    protected $typeTable = [
-        self::TYPE_STRING => [
-            'label' => '字符串',
-        ],
-        self::TYPE_BOOL => [
-            'label' => '布尔值',
-        ],
-        self::TYPE_INT => [
-            'label' => '整数',
-        ],
-        self::TYPE_FLOAT => [
-            'label' => '小数',
-        ],
-        self::TYPE_ARRAY => [
-            'label' => '数组',
-        ],
-        self::TYPE_NULL => [
-            'label' => 'NULL',
-        ],
-        self::TYPE_EXPRESS => [
-            'label' => '表达式',
-        ],
+    protected $typeNames = [
+        self::TYPE_STRING => '字符串',
+        self::TYPE_BOOL => '布尔值',
+        self::TYPE_INT => '整数',
+        self::TYPE_FLOAT => '小数',
+        self::TYPE_ARRAY => '数组',
+        self::TYPE_NULL => 'NULL',
+        self::TYPE_EXPRESS => '表达式',
     ];
 
     /**
