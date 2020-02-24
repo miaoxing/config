@@ -2,7 +2,7 @@
 
 namespace Miaoxing\Config\Migration;
 
-use Miaoxing\Plugin\BaseMigration;
+use Miaoxing\Services\Migration\BaseMigration;
 
 class V20170425091631AddCommentToConfigsTable extends BaseMigration
 {
