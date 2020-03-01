@@ -7,7 +7,7 @@ use Miaoxing\Config\Service\ConfigModel;
 use Miaoxing\Plugin\BaseController;
 use Wei\Request;
 
-class Configs extends BaseController
+class ConfigsController extends BaseController
 {
     protected $displayPageHeader = true;
 
