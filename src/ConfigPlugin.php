@@ -4,7 +4,7 @@ namespace Miaoxing\Config;
 
 use Miaoxing\Plugin\BasePlugin;
 
-class Plugin extends BasePlugin
+class ConfigPlugin extends BasePlugin
 {
     /**
      * {@inheritdoc}
