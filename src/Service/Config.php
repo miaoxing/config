@@ -244,7 +244,7 @@ class Config extends \Wei\Config
     protected function getVersion()
     {
         $version = $this->cache->get($this->getVersionKey(), function () {
-            return $this->initModel()->findOrInit(['name' => $this->getVersionKey()])->getPhpValue();
+            return $this->initModel()->findOrInitBy(['name' => $this->getVersionKey()])->getPhpValue();
         });
 
         if (!$version) {
@@ -262,7 +262,7 @@ class Config extends \Wei\Config
     protected function updateVersion()
     {
         $versionConfig = $this->initModel()
-            ->findOrInit(['name' => $this->getVersionKey()])
+            ->findOrInitBy(['name' => $this->getVersionKey()])
             ->save([
                 'value' => date('Y-m-d H:i:s'),
                 'comment' => '配置版本号,用于判断是否需要更新配置',

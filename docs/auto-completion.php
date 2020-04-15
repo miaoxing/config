@@ -8,7 +8,7 @@ class ConfigMixin {
 
 /**
  * @property    Miaoxing\Config\Service\ConfigModel $configModel 配置模型
- * @method      \Miaoxing\Config\Service\ConfigModel|\Miaoxing\Config\Service\ConfigModel[] configModel()
+ * @method      Miaoxing\Config\Service\ConfigModel|Miaoxing\Config\Service\ConfigModel[] configModel($table = null)
  */
 class ConfigModelMixin {
 }
