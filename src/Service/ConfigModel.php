@@ -140,7 +140,7 @@ class ConfigModel extends Model
      */
     public function getPhpValue()
     {
-        return $this->data['value'] ? call_user_func($this->decoder, $this->data['value']) : null;
+        return isset($this->data['value']) ? call_user_func($this->decoder, $this->data['value']) : null;
     }
 
     /**
