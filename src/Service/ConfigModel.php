@@ -76,8 +76,8 @@ class ConfigModel extends Model
      */
     public function store($req)
     {
-        if (strpos($req['name'], Config::DELIMITER) === false) {
-            return $this->err('名称需包含分隔符(' . Config::DELIMITER . ')');
+        if (strpos($req['name'], Config2::DELIMITER) === false) {
+            return $this->err('名称需包含分隔符(' . Config2::DELIMITER . ')');
         }
 
         if ($req['type'] == static::TYPE_ARRAY) {

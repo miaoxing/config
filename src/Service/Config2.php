@@ -16,7 +16,7 @@ use Wei\Wei;
  * @property Wei|AutoComplete $wei
  * @property Env env
  */
-class Config extends \Wei\Config
+class Config2 extends \Wei\Config
 {
     use RetTrait;
 

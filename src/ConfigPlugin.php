@@ -13,6 +13,6 @@ class ConfigPlugin extends BasePlugin
 
     public function onAppInit()
     {
-        wei()->config->checkUpdate();
+        //wei()->config->checkUpdate();
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Miaoxing\Config\Controller\Admin;
 
-use Miaoxing\Config\Service\Config;
+use Miaoxing\Config\Service\Config2;
 use Miaoxing\Config\Service\ConfigModel;
 use Miaoxing\Plugin\BaseController;
 use Wei\Request;

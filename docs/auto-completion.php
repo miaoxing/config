@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @property    Miaoxing\Config\Service\Config $config 配置服务
+ * @property    Miaoxing\Config\Service\Config2 $config 配置服务
  */
 class ConfigMixin {
 }
@@ -28,7 +28,7 @@ function wei()
     return new AutoCompletion;
 }
 
-/** @var Miaoxing\Config\Service\Config $config */
+/** @var Miaoxing\Config\Service\Config2 $config */
 $config = wei()->config;
 
 /** @var Miaoxing\Config\Service\ConfigModel $configModel */
