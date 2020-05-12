@@ -383,6 +383,9 @@ class Config2 extends \Wei\Config
             case 'boolean':
                 return $var ? 'true' : 'false';
 
+            case 'NULL':
+                return 'null';
+
             case 'object' && $var->express:
                 return $var->express;
 

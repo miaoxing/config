@@ -1,9 +1,9 @@
 <?php
 
 /**
- * @property    Miaoxing\Config\Service\Config2 $config 配置服务
+ * @property    Miaoxing\Config\Service\Config2 $config2 配置服务
  */
-class ConfigMixin {
+class Config2Mixin {
 }
 
 /**
@@ -14,7 +14,7 @@ class ConfigModelMixin {
 }
 
 /**
- * @mixin ConfigMixin
+ * @mixin Config2Mixin
  * @mixin ConfigModelMixin
  */
 class AutoCompletion {
@@ -28,8 +28,8 @@ function wei()
     return new AutoCompletion;
 }
 
-/** @var Miaoxing\Config\Service\Config2 $config */
-$config = wei()->config;
+/** @var Miaoxing\Config\Service\Config2 $config2 */
+$config2 = wei()->config2;
 
 /** @var Miaoxing\Config\Service\ConfigModel $configModel */
 $config = wei()->configModel();
