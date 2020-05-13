@@ -363,7 +363,7 @@ class Config2 extends \Wei\Config
      * @param mixed $var
      * @param string $indent
      * @return string
-     * @see BaseMiddleware on https://stackoverflow.com/questions/24316347/how-to-format-var-export-to-php5-4-array-syntax
+     * @link https://stackoverflow.com/questions/24316347/how-to-format-var-export-to-php5-4-array-syntax
      */
     protected function varExport($var, $indent = '')
     {
@@ -372,21 +372,21 @@ class Config2 extends \Wei\Config
                 return '\'' . addcslashes($var, "\\\$\'\r\n\t\v\f") . '\'';
             case 'array':
                 $indexed = array_keys($var) === range(0, count($var) - 1);
-                $r = [];
+                $result = [];
                 foreach ($var as $key => $value) {
-                    $r[] = $indent . '    '
+                    $result[] = $indent . '    '
                         . ($indexed ? '' : $this->varExport($key) . ' => ')
                         . $this->varExport($value, "$indent    ");
                 }
 
-                return "[\n" . implode(",\n", $r) . ($r ? ',' : '') . "\n" . $indent . ']';
+                return "[\n" . implode(",\n", $result) . ($result ? ',' : '') . "\n" . $indent . ']';
             case 'boolean':
                 return $var ? 'true' : 'false';
 
             case 'NULL':
                 return 'null';
 
-            case 'object' && $var->express:
+            case 'object' && isset($var->express):
                 return $var->express;
 
             default:
