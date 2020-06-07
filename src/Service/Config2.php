@@ -27,7 +27,7 @@ class Config2 extends \Wei\Config
      *
      * @var string
      */
-    protected $configFile = 'data/configs/%env%.php';
+    protected $configFile = 'storage/configs/%env%.php';
 
     /**
      * 存储在数据库,缓存中的版本键名

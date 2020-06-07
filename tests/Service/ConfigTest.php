@@ -11,7 +11,7 @@ class ConfigTest extends BaseTestCase
 
     protected static $versionKey = 'testConfig.version';
 
-    protected static $configFile = 'data/test.php';
+    protected static $configFile = 'storage/test.php';
 
     protected static $maxId;
 
