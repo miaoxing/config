@@ -5,7 +5,7 @@ namespace Miaoxing\Config\Controller\Admin;
 use Miaoxing\Config\Service\Config2;
 use Miaoxing\Config\Service\ConfigModel;
 use Miaoxing\Plugin\BaseController;
-use Wei\Request;
+use Wei\Req;
 
 class ConfigsController extends BaseController
 {
@@ -55,7 +55,7 @@ class ConfigsController extends BaseController
         return $this->updateAction($req);
     }
 
-    public function updateAction(Request $req)
+    public function updateAction(Req $req)
     {
         $ret = wei()->configModel()->store($req);
 
