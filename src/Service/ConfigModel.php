@@ -45,13 +45,6 @@ class ConfigModel extends Model
     ];
 
     /**
-     * @var array
-     */
-    protected $defaultCasts = [
-        'value' => 'mixed',
-    ];
-
-    /**
      * @var callable
      */
     protected $encoder = 'serialize';
@@ -67,6 +60,13 @@ class ConfigModel extends Model
     protected $virtual = [
         'type_label',
     ];
+
+    public function getCasts(): array
+    {
+        return array_merge(parent::getCasts(), [
+            'value' => 'mixed',
+        ]);
+    }
 
     /**
      * 保存一项配置
