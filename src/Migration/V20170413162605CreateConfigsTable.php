@@ -14,7 +14,7 @@ class V20170413162605CreateConfigsTable extends BaseMigration
         $this->schema->table('configs')
             ->id()
             ->string('server', 32)
-            ->tinyInt('type', 1)->comment('值的类型,默认0为字符串')
+            ->uTinyInt('type', 1)->comment('值的类型,默认0为字符串')
             ->string('name', 255)
             ->text('value')
             ->timestamps()
