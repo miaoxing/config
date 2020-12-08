@@ -2,6 +2,8 @@
 
 namespace Miaoxing\Config\Metadata;
 
+use Miaoxing\Plugin\Model\ModelTrait;
+
 /**
  * ConfigTrait
  *
@@ -20,6 +22,8 @@ namespace Miaoxing\Config\Metadata;
  */
 trait ConfigTrait
 {
+    use ModelTrait;
+
     /**
      * @var array
      * @see CastTrait::$casts

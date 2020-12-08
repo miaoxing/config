@@ -219,7 +219,7 @@ class ConfigModel
      * Returns the name of fields of current table
      *
      * @return array
-     * @see QueryBuilder::getFields
+     * @see QueryBuilder::getColumns
      */
     public static function getFields()
     {
@@ -773,7 +773,7 @@ class ConfigModel
     /**
      * @param callable $converter
      * @return $this
-     * @see QueryBuilder::setInputIdentifierConverter
+     * @see QueryBuilder::setDbKeyConverter
      */
     public static function setInputIdentifierConverter(callable $converter)
     {
@@ -1053,7 +1053,7 @@ class ConfigModel
      * Returns the name of fields of current table
      *
      * @return array
-     * @see QueryBuilder::getFields
+     * @see QueryBuilder::getColumns
      */
     public function getFields()
     {
@@ -1607,7 +1607,7 @@ class ConfigModel
     /**
      * @param callable $converter
      * @return $this
-     * @see QueryBuilder::setInputIdentifierConverter
+     * @see QueryBuilder::setDbKeyConverter
      */
     public function setInputIdentifierConverter(callable $converter)
     {

@@ -3,6 +3,8 @@
 namespace Miaoxing\Config\Service;
 
 use Miaoxing\Config\Metadata\ConfigTrait;
+use Miaoxing\Plugin\BaseModel;
+use Miaoxing\Plugin\Model\ModelTrait;
 use Miaoxing\Plugin\Model\SoftDeleteTrait;
 use Miaoxing\Plugin\Service\Model;
 use Miaoxing\Plugin\ConstTrait;
@@ -11,7 +13,7 @@ use stdClass;
 /**
  * 配置模型
  */
-class ConfigModel extends Model
+class ConfigModel extends BaseModel
 {
     use ConstTrait;
     use ConfigTrait;
