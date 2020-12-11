@@ -132,7 +132,7 @@ class ConfigModel extends BaseModel
     protected function setValueAttribute($value)
     {
         $value = $this->convert($value, $this->get('type'));
-        $this->data['value'] = call_user_func($this->encoder, $value);
+        $this->attributes['value'] = call_user_func($this->encoder, $value);
     }
 
     /**
@@ -142,7 +142,7 @@ class ConfigModel extends BaseModel
      */
     public function getPhpValue()
     {
-        return isset($this->data['value']) ? call_user_func($this->decoder, $this->data['value']) : null;
+        return isset($this->attributes['value']) ? call_user_func($this->decoder, $this->attributes['value']) : null;
     }
 
     /**

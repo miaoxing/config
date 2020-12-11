@@ -784,7 +784,7 @@ class ConfigModel
      *
      * @param false|int|null $seconds
      * @return $this
-     * @see QueryBuilder::cache
+     * @see QueryBuilder::setCacheTime
      */
     public static function cache($seconds = null)
     {
@@ -1618,7 +1618,7 @@ class ConfigModel
      *
      * @param false|int|null $seconds
      * @return $this
-     * @see QueryBuilder::cache
+     * @see QueryBuilder::setCacheTime
      */
     public function cache($seconds = null)
     {
