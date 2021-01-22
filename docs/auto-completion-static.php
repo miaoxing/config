@@ -9,34 +9,68 @@ class Config2
 class ConfigModel
 {
     /**
+     * Set each attribute value, without checking whether the column is fillable, and save the model
+     *
+     * @param iterable $attributes
+     * @return $this
+     * @see ConfigModel::saveAttributes
+     */
+    public static function saveAttributes(iterable $attributes = []): self
+    {
+    }
+
+    /**
+     * Returns the record data as array
+     *
+     * @param array|callable $returnFields A indexed array specified the fields to return
+     * @param callable|null $prepend
+     * @return array
+     * @see ConfigModel::toArray
+     */
+    public static function toArray($returnFields = [], callable $prepend = null): array
+    {
+    }
+
+    /**
+     * Returns the success result with model data
+     *
+     * @param array $merge
+     * @return Ret
+     * @see ConfigModel::toRet
+     */
+    public static function toRet(array $merge = []): \Wei\Ret
+    {
+    }
+
+    /**
      * Return the record table name
      *
      * @return string
-     * @see Model::getTable
+     * @see ConfigModel::getTable
      */
-    public static function getTable()
+    public static function getTable(): string
     {
     }
 
     /**
      * Import a PHP array in this record
      *
-     * @param array|\ArrayAccess $data
+     * @param iterable $array
      * @return $this
-     * @see Model::fromArray
+     * @see ConfigModel::fromArray
      */
-    public static function fromArray($data)
+    public static function fromArray(iterable $array): self
     {
     }
 
     /**
      * Save the record or data to database
      *
-     * @param array $data
+     * @param iterable $attributes
      * @return $this
-     * @see Model::save
+     * @see ConfigModel::save
      */
-    public static function save($data = [])
+    public static function save(iterable $attributes = []): self
     {
     }
 
@@ -45,22 +79,22 @@ class ConfigModel
      *
      * @param int|string $id
      * @return $this
-     * @see Model::destroy
+     * @see ConfigModel::destroy
      */
-    public static function destroy($id = null)
+    public static function destroy($id = null): self
     {
     }
 
     /**
      * Set the record field value
      *
-     * @param string $name
+     * @param string|int $name
      * @param mixed $value
      * @param bool $throwException
      * @return $this|false
-     * @see Model::set
+     * @see ConfigModel::set
      */
-    public static function set($name, $value = null, $throwException = true)
+    public static function set($name, $value, bool $throwException = true)
     {
     }
 
@@ -69,9 +103,9 @@ class ConfigModel
      *
      * @param int|string|array|null $id
      * @return $this|null
-     * @see Model::find
+     * @see ConfigModel::find
      */
-    public static function find($id)
+    public static function find($id): ?self
     {
     }
 
@@ -81,43 +115,43 @@ class ConfigModel
      * @param int|string $id
      * @return $this
      * @throws \Exception
-     * @see Model::findOrFail
+     * @see ConfigModel::findOrFail
      */
-    public static function findOrFail($id)
+    public static function findOrFail($id): self
     {
     }
 
     /**
-     * Find a record by primary key, or init with the specified data if record not found
+     * Find a record by primary key, or init with the specified attributes if record not found
      *
      * @param int|string $id
-     * @param array|object $data
+     * @param array|object $attributes
      * @return $this
-     * @see Model::findOrInit
+     * @see ConfigModel::findOrInit
      */
-    public static function findOrInit($id = null, $data = [])
+    public static function findOrInit($id = null, $attributes = []): self
     {
     }
 
     /**
-     * Find a record by primary key, or save with the specified data if record not found
+     * Find a record by primary key, or save with the specified attributes if record not found
      *
      * @param int|string $id
-     * @param array $data
+     * @param array $attributes
      * @return $this
-     * @see Model::findOrCreate
+     * @see ConfigModel::findOrCreate
      */
-    public static function findOrCreate($id, $data = [])
+    public static function findOrCreate($id, $attributes = []): self
     {
     }
 
     /**
      * @param array $attributes
-     * @param array $data
+     * @param array|object $data
      * @return $this
-     * @see Model::findByOrCreate
+     * @see ConfigModel::findByOrCreate
      */
-    public static function findByOrCreate($attributes, $data = [])
+    public static function findByOrCreate($attributes, $data = []): self
     {
     }
 
@@ -126,9 +160,9 @@ class ConfigModel
      *
      * @param array $ids
      * @return $this|$this[]
-     * @see Model::findAll
+     * @see ConfigModel::findAll
      */
-    public static function findAll($ids)
+    public static function findAll(array $ids): self
     {
     }
 
@@ -137,9 +171,9 @@ class ConfigModel
      * @param mixed|null $operator
      * @param mixed|null $value
      * @return $this|null
-     * @see Model::findBy
+     * @see ConfigModel::findBy
      */
-    public static function findBy($column, $operator = null, $value = null)
+    public static function findBy($column, $operator = null, $value = null): ?self
     {
     }
 
@@ -148,9 +182,9 @@ class ConfigModel
      * @param mixed|null $operator
      * @param mixed|null $value
      * @return $this|$this[]
-     * @see Model::findAllBy
+     * @see ConfigModel::findAllBy
      */
-    public static function findAllBy($column, $operator = null, $value = null)
+    public static function findAllBy($column, $operator = null, $value = null): self
     {
     }
 
@@ -158,9 +192,9 @@ class ConfigModel
      * @param array $attributes
      * @param array|object $data
      * @return $this
-     * @see Model::findOrInitBy
+     * @see ConfigModel::findOrInitBy
      */
-    public static function findOrInitBy($attributes, $data = [])
+    public static function findOrInitBy(array $attributes, $data = []): self
     {
     }
 
@@ -172,19 +206,19 @@ class ConfigModel
      * @param mixed|null $value
      * @return $this
      * @throws \Exception
-     * @see Model::findByOrFail
+     * @see ConfigModel::findByOrFail
      */
-    public static function findByOrFail($column, $operator = null, $value = null)
+    public static function findByOrFail($column, $operator = null, $value = null): self
     {
     }
 
     /**
-     * @param array|Req|null $request
+     * @param Req|null $req
      * @return $this
      * @throws \Exception
-     * @see Model::findFromRequest
+     * @see ConfigModel::findFromReq
      */
-    public static function findFromRequest($request = null)
+    public static function findFromReq(\Wei\Req $req = null): self
     {
     }
 
@@ -192,36 +226,49 @@ class ConfigModel
      * Executes the generated SQL and returns the found record object or null if not found
      *
      * @return $this|null
-     * @see Model::first
+     * @see ConfigModel::first
      */
-    public static function first()
+    public static function first(): ?self
     {
     }
 
     /**
-     * @return $this|array
-     * @see Model::all
+     * @return $this|$this[]
+     * @see ConfigModel::all
      */
-    public static function all()
+    public static function all(): self
     {
     }
 
     /**
+     * Coll: Specifies a field to be the key of the fetched array
+     *
      * @param string $column
      * @return $this
-     * @see Model::indexBy
+     * @see ConfigModel::indexBy
      */
-    public static function indexBy($column)
+    public static function indexBy(string $column): self
     {
     }
 
     /**
-     * Returns the name of fields of current table
+     * Returns the name of columns of current table
      *
      * @return array
-     * @see QueryBuilder::getColumns
+     * @see ConfigModel::getColumns
      */
-    public static function getFields()
+    public static function getColumns(): array
+    {
+    }
+
+    /**
+     * Check if column name exists
+     *
+     * @param string|int|null $name
+     * @return bool
+     * @see ConfigModel::hasColumn
+     */
+    public static function hasColumn($name): bool
     {
     }
 
@@ -232,9 +279,9 @@ class ConfigModel
      * @param mixed|null $operator
      * @param mixed|null $value
      * @return array|null
-     * @see QueryBuilder::fetch
+     * @see ConfigModel::fetch
      */
-    public static function fetch($column = null, $operator = null, $value = null)
+    public static function fetch($column = null, $operator = null, $value = null): ?array
     {
     }
 
@@ -245,9 +292,9 @@ class ConfigModel
      * @param mixed|null $operator
      * @param mixed|null $value
      * @return array
-     * @see QueryBuilder::fetchAll
+     * @see ConfigModel::fetchAll
      */
-    public static function fetchAll($column = null, $operator = null, $value = null)
+    public static function fetchAll($column = null, $operator = null, $value = null): array
     {
     }
 
@@ -255,9 +302,9 @@ class ConfigModel
      * @param string $column
      * @param string|null $index
      * @return array
-     * @see QueryBuilder::pluck
+     * @see ConfigModel::pluck
      */
-    public static function pluck(string $column, string $index = null)
+    public static function pluck(string $column, string $index = null): array
     {
     }
 
@@ -265,9 +312,9 @@ class ConfigModel
      * @param int $count
      * @param callable $callback
      * @return bool
-     * @see QueryBuilder::chunk
+     * @see ConfigModel::chunk
      */
-    public static function chunk(int $count, callable $callback)
+    public static function chunk(int $count, callable $callback): bool
     {
     }
 
@@ -276,9 +323,9 @@ class ConfigModel
      *
      * @param string $column
      * @return int
-     * @see QueryBuilder::cnt
+     * @see ConfigModel::cnt
      */
-    public static function cnt($column = '*')
+    public static function cnt($column = '*'): int
     {
     }
 
@@ -288,9 +335,9 @@ class ConfigModel
      * @param array|string $set
      * @param mixed $value
      * @return int
-     * @see QueryBuilder::update
+     * @see ConfigModel::update
      */
-    public static function update($set = [], $value = null)
+    public static function update($set = [], $value = null): int
     {
     }
 
@@ -300,10 +347,10 @@ class ConfigModel
      * @param mixed|null $column
      * @param mixed|null $operator
      * @param mixed|null $value
-     * @return mixed
-     * @see QueryBuilder::delete
+     * @return int
+     * @see ConfigModel::delete
      */
-    public static function delete($column = null, $operator = null, $value = null)
+    public static function delete($column = null, $operator = null, $value = null): int
     {
     }
 
@@ -312,9 +359,9 @@ class ConfigModel
      *
      * @param int|float|string $offset The first result to return
      * @return $this
-     * @see QueryBuilder::offset
+     * @see ConfigModel::offset
      */
-    public static function offset($offset)
+    public static function offset($offset): self
     {
     }
 
@@ -323,9 +370,9 @@ class ConfigModel
      *
      * @param int|float|string $limit The maximum number of results to retrieve
      * @return $this
-     * @see QueryBuilder::limit
+     * @see ConfigModel::limit
      */
-    public static function limit($limit)
+    public static function limit($limit): self
     {
     }
 
@@ -334,9 +381,9 @@ class ConfigModel
      *
      * @param int $page The page number
      * @return $this
-     * @see QueryBuilder::page
+     * @see ConfigModel::page
      */
-    public static function page($page)
+    public static function page($page): self
     {
     }
 
@@ -346,7 +393,7 @@ class ConfigModel
      *
      * @param array|string $columns the selection expressions
      * @return $this
-     * @see QueryBuilder::select
+     * @see ConfigModel::select
      */
     public static function select($columns = ['*']): self
     {
@@ -355,18 +402,18 @@ class ConfigModel
     /**
      * @param array|string $columns
      * @return $this
-     * @see QueryBuilder::selectDistinct
+     * @see ConfigModel::selectDistinct
      */
-    public static function selectDistinct($columns)
+    public static function selectDistinct($columns): self
     {
     }
 
     /**
      * @param string $expression
      * @return $this
-     * @see QueryBuilder::selectRaw
+     * @see ConfigModel::selectRaw
      */
-    public static function selectRaw($expression)
+    public static function selectRaw($expression): self
     {
     }
 
@@ -376,9 +423,21 @@ class ConfigModel
      *
      * @param array|string $columns
      * @return $this
-     * @see QueryBuilder::selectExcept
+     * @see ConfigModel::selectExcept
      */
-    public static function selectExcept($columns)
+    public static function selectExcept($columns): self
+    {
+    }
+
+    /**
+     * Specifies an item of the main table that is to be returned in the query result.
+     * Default to all columns of the main table
+     *
+     * @param string $column
+     * @return $this
+     * @see ConfigModel::selectMain
+     */
+    public static function selectMain(string $column = '*'): self
     {
     }
 
@@ -388,9 +447,9 @@ class ConfigModel
      * @param string $table
      * @param string|null $alias
      * @return $this
-     * @see QueryBuilder::from
+     * @see ConfigModel::from
      */
-    public static function from($table, $alias = null): self
+    public static function from(string $table, $alias = null): self
     {
     }
 
@@ -398,7 +457,7 @@ class ConfigModel
      * @param string $table
      * @param mixed|null $alias
      * @return $this
-     * @see QueryBuilder::table
+     * @see ConfigModel::table
      */
     public static function table(string $table, $alias = null): self
     {
@@ -408,14 +467,14 @@ class ConfigModel
      * Adds a inner join to the query
      *
      * @param string $table The table name to join
-     * @param string $first
+     * @param string|null $first
      * @param string $operator
-     * @param string $second
+     * @param string|null $second
      * @param string $type
      * @return $this
-     * @see QueryBuilder::join
+     * @see ConfigModel::join
      */
-    public static function join(string $table, string $first = null, string $operator = '=', string $second = null, string $type = 'INNER')
+    public static function join(string $table, string $first = null, string $operator = '=', string $second = null, string $type = 'INNER'): self
     {
     }
 
@@ -427,9 +486,9 @@ class ConfigModel
      * @param string $operator
      * @param string|null $second
      * @return $this
-     * @see QueryBuilder::innerJoin
+     * @see ConfigModel::innerJoin
      */
-    public static function innerJoin(string $table, string $first = null, string $operator = '=', string $second = null)
+    public static function innerJoin(string $table, string $first = null, string $operator = '=', string $second = null): self
     {
     }
 
@@ -441,9 +500,9 @@ class ConfigModel
      * @param string $operator
      * @param string|null $second
      * @return $this
-     * @see QueryBuilder::leftJoin
+     * @see ConfigModel::leftJoin
      */
-    public static function leftJoin(string $table, string $first = null, string $operator = '=', string $second = null)
+    public static function leftJoin(string $table, string $first = null, string $operator = '=', string $second = null): self
     {
     }
 
@@ -455,9 +514,9 @@ class ConfigModel
      * @param string $operator
      * @param string|null $second
      * @return $this
-     * @see QueryBuilder::rightJoin
+     * @see ConfigModel::rightJoin
      */
-    public static function rightJoin(string $table, string $first = null, string $operator = '=', string $second = null)
+    public static function rightJoin(string $table, string $first = null, string $operator = '=', string $second = null): self
     {
     }
 
@@ -476,19 +535,19 @@ class ConfigModel
      * @param mixed|null $operator
      * @param mixed|null $value
      * @return $this
-     * @see QueryBuilder::where
+     * @see ConfigModel::where
      */
-    public static function where($column = null, $operator = null, $value = null)
+    public static function where($column = null, $operator = null, $value = null): self
     {
     }
 
     /**
-     * @param string $expression
+     * @param scalar $expression
      * @param mixed $params
      * @return $this
-     * @see QueryBuilder::whereRaw
+     * @see ConfigModel::whereRaw
      */
-    public static function whereRaw($expression, $params = [])
+    public static function whereRaw($expression, $params = null): self
     {
     }
 
@@ -496,9 +555,9 @@ class ConfigModel
      * @param string $column
      * @param array $params
      * @return $this
-     * @see QueryBuilder::whereBetween
+     * @see ConfigModel::whereBetween
      */
-    public static function whereBetween($column, array $params)
+    public static function whereBetween(string $column, array $params): self
     {
     }
 
@@ -506,9 +565,9 @@ class ConfigModel
      * @param string $column
      * @param array $params
      * @return $this
-     * @see QueryBuilder::orWhereBetween
+     * @see ConfigModel::whereNotBetween
      */
-    public static function orWhereBetween($column, array $params)
+    public static function whereNotBetween(string $column, array $params): self
     {
     }
 
@@ -516,9 +575,9 @@ class ConfigModel
      * @param string $column
      * @param array $params
      * @return $this
-     * @see QueryBuilder::whereNotBetween
+     * @see ConfigModel::whereIn
      */
-    public static function whereNotBetween($column, array $params)
+    public static function whereIn(string $column, array $params): self
     {
     }
 
@@ -526,37 +585,27 @@ class ConfigModel
      * @param string $column
      * @param array $params
      * @return $this
-     * @see QueryBuilder::whereIn
+     * @see ConfigModel::whereNotIn
      */
-    public static function whereIn($column, array $params)
-    {
-    }
-
-    /**
-     * @param string $column
-     * @param array $params
-     * @return $this
-     * @see QueryBuilder::whereNotIn
-     */
-    public static function whereNotIn($column, array $params)
+    public static function whereNotIn(string $column, array $params): self
     {
     }
 
     /**
      * @param string $column
      * @return $this
-     * @see QueryBuilder::whereNull
+     * @see ConfigModel::whereNull
      */
-    public static function whereNull($column)
+    public static function whereNull(string $column): self
     {
     }
 
     /**
      * @param string $column
      * @return $this
-     * @see QueryBuilder::whereNotNULL
+     * @see ConfigModel::whereNotNull
      */
-    public static function whereNotNULL($column)
+    public static function whereNotNull(string $column): self
     {
     }
 
@@ -565,9 +614,9 @@ class ConfigModel
      * @param mixed $opOrValue
      * @param mixed|null $value
      * @return $this
-     * @see QueryBuilder::whereDate
+     * @see ConfigModel::whereDate
      */
-    public static function whereDate($column, $opOrValue, $value = null)
+    public static function whereDate(string $column, $opOrValue, $value = null): self
     {
     }
 
@@ -576,9 +625,9 @@ class ConfigModel
      * @param mixed $opOrValue
      * @param mixed|null $value
      * @return $this
-     * @see QueryBuilder::whereMonth
+     * @see ConfigModel::whereMonth
      */
-    public static function whereMonth($column, $opOrValue, $value = null)
+    public static function whereMonth(string $column, $opOrValue, $value = null): self
     {
     }
 
@@ -587,9 +636,9 @@ class ConfigModel
      * @param mixed $opOrValue
      * @param mixed|null $value
      * @return $this
-     * @see QueryBuilder::whereDay
+     * @see ConfigModel::whereDay
      */
-    public static function whereDay($column, $opOrValue, $value = null)
+    public static function whereDay(string $column, $opOrValue, $value = null): self
     {
     }
 
@@ -598,9 +647,9 @@ class ConfigModel
      * @param mixed $opOrValue
      * @param mixed|null $value
      * @return $this
-     * @see QueryBuilder::whereYear
+     * @see ConfigModel::whereYear
      */
-    public static function whereYear($column, $opOrValue, $value = null)
+    public static function whereYear(string $column, $opOrValue, $value = null): self
     {
     }
 
@@ -609,20 +658,20 @@ class ConfigModel
      * @param mixed $opOrValue
      * @param mixed|null $value
      * @return $this
-     * @see QueryBuilder::whereTime
+     * @see ConfigModel::whereTime
      */
-    public static function whereTime($column, $opOrValue, $value = null)
+    public static function whereTime(string $column, $opOrValue, $value = null): self
     {
     }
 
     /**
      * @param string $column
-     * @param string $opOrColumn2
-     * @param string|null $column2
+     * @param mixed $opOrColumn2
+     * @param mixed|null $column2
      * @return $this
-     * @see QueryBuilder::whereColumn
+     * @see ConfigModel::whereColumn
      */
-    public static function whereColumn($column, $opOrColumn2, $column2 = null)
+    public static function whereColumn(string $column, $opOrColumn2, $column2 = null): self
     {
     }
 
@@ -630,23 +679,46 @@ class ConfigModel
      * 搜索字段是否包含某个值
      *
      * @param string $column
-     * @param string $value
+     * @param mixed $value
      * @param string $condition
      * @return $this
-     * @see QueryBuilder::whereContains
+     * @see ConfigModel::whereContains
      */
-    public static function whereContains($column, $value, string $condition = 'AND')
+    public static function whereContains(string $column, $value, string $condition = 'AND'): self
     {
     }
 
     /**
-     * @param mixed $column
+     * @param string $column
      * @param mixed $value
      * @param string $condition
      * @return $this
-     * @see QueryBuilder::whereNotContains
+     * @see ConfigModel::whereNotContains
      */
-    public static function whereNotContains($column, $value, string $condition = 'OR')
+    public static function whereNotContains(string $column, $value, string $condition = 'OR'): self
+    {
+    }
+
+    /**
+     * Search whether a column has a value other than the default value
+     *
+     * @param string $column
+     * @param bool $has
+     * @return $this
+     * @see ConfigModel::whereHas
+     */
+    public static function whereHas(string $column, bool $has = true): self
+    {
+    }
+
+    /**
+     * Search whether a column dont have a value other than the default value
+     *
+     * @param string $column
+     * @return $this
+     * @see ConfigModel::whereNotHas
+     */
+    public static function whereNotHas(string $column): self
     {
     }
 
@@ -656,9 +728,9 @@ class ConfigModel
      *
      * @param mixed $column the grouping column
      * @return $this
-     * @see QueryBuilder::groupBy
+     * @see ConfigModel::groupBy
      */
-    public static function groupBy($column)
+    public static function groupBy($column): self
     {
     }
 
@@ -671,9 +743,9 @@ class ConfigModel
      * @param mixed|null $value
      * @param mixed $condition
      * @return $this
-     * @see QueryBuilder::having
+     * @see ConfigModel::having
      */
-    public static function having($column, $operator, $value = null, $condition = 'AND')
+    public static function having($column, $operator, $value = null, $condition = 'AND'): self
     {
     }
 
@@ -684,9 +756,9 @@ class ConfigModel
      * @param string $column the ordering expression
      * @param string $order the ordering direction
      * @return $this
-     * @see QueryBuilder::orderBy
+     * @see ConfigModel::orderBy
      */
-    public static function orderBy($column, $order = 'ASC')
+    public static function orderBy(string $column, $order = 'ASC'): self
     {
     }
 
@@ -695,9 +767,9 @@ class ConfigModel
      *
      * @param string $field The name of field
      * @return $this
-     * @see QueryBuilder::desc
+     * @see ConfigModel::desc
      */
-    public static function desc($field)
+    public static function desc(string $field): self
     {
     }
 
@@ -706,45 +778,34 @@ class ConfigModel
      *
      * @param string $field The name of field
      * @return $this
-     * @see QueryBuilder::asc
+     * @see ConfigModel::asc
      */
-    public static function asc($field)
-    {
-    }
-
-    /**
-     * Reset single SQL part
-     *
-     * @param string $name
-     * @return $this
-     * @see QueryBuilder::resetSqlPart
-     */
-    public static function resetSqlPart($name)
+    public static function asc(string $field): self
     {
     }
 
     /**
      * @return $this
-     * @see QueryBuilder::forUpdate
+     * @see ConfigModel::forUpdate
      */
-    public static function forUpdate()
+    public static function forUpdate(): self
     {
     }
 
     /**
      * @return $this
-     * @see QueryBuilder::forShare
+     * @see ConfigModel::forShare
      */
-    public static function forShare()
+    public static function forShare(): self
     {
     }
 
     /**
      * @param string|bool $lock
      * @return $this
-     * @see QueryBuilder::lock
+     * @see ConfigModel::lock
      */
-    public static function lock($lock)
+    public static function lock($lock): self
     {
     }
 
@@ -753,9 +814,9 @@ class ConfigModel
      * @param callable $callback
      * @param callable|null $default
      * @return $this
-     * @see QueryBuilder::when
+     * @see ConfigModel::when
      */
-    public static function when($value, $callback, callable $default = null)
+    public static function when($value, callable $callback, callable $default = null): self
     {
     }
 
@@ -764,71 +825,103 @@ class ConfigModel
      * @param callable $callback
      * @param callable|null $default
      * @return $this
-     * @see QueryBuilder::unless
+     * @see ConfigModel::unless
      */
-    public static function unless($value, callable $callback, callable $default = null)
+    public static function unless($value, callable $callback, callable $default = null): self
     {
     }
 
     /**
-     * @param callable $converter
+     * @param callable|null $converter
      * @return $this
-     * @see QueryBuilder::setDbKeyConverter
+     * @see ConfigModel::setDbKeyConverter
      */
-    public static function setInputIdentifierConverter(callable $converter)
+    public static function setDbKeyConverter(callable $converter = null): self
+    {
+    }
+
+    /**
+     * @param callable|null $converter
+     * @return $this
+     * @see ConfigModel::setPhpKeyConverter
+     */
+    public static function setPhpKeyConverter(callable $converter = null): self
     {
     }
 
     /**
      * Set or remove cache time for the query
      *
-     * @param false|int|null $seconds
+     * @param int|null $seconds
      * @return $this
-     * @see QueryBuilder::setCacheTime
+     * @see ConfigModel::setCacheTime
      */
-    public static function cache($seconds = null)
+    public static function setCacheTime(?int $seconds): self
     {
     }
 
     /**
      * @param array|string|true $scopes
      * @return $this
-     * @see Model::unscoped
+     * @see ConfigModel::unscoped
      */
-    public static function unscoped($scopes = [])
+    public static function unscoped($scopes = []): self
     {
     }
 
     /**
-     * @param mixed $conditions
+     * Check if the model method defines the "Relation" attribute (or the "@Relation" tag in doc comment)
+     *
+     * This method only checks whether the specified method has the "Relation" attribute,
+     * and does not check the actual logic.
+     * It is provided for external use to avoid directly calling `$this->$relation()` to cause attacks.
+     *
+     * @param string $method
+     * @return bool
+     * @see ConfigModel::isRelation
+     */
+    public static function isRelation(string $method): bool
+    {
+    }
+
+    /**
+     * Really remove the record from database
+     *
+     * @param int|string $id
      * @return $this
      * @see ConfigModel::reallyDestroy
      */
-    public static function reallyDestroy($conditions = false)
+    public static function reallyDestroy($id = false): self
     {
     }
 
     /**
+     * Add a query to filter soft deleted records
+     *
      * @return $this
      * @see ConfigModel::withoutDeleted
      */
-    public static function withoutDeleted()
+    public static function withoutDeleted(): self
     {
     }
 
     /**
+     * Add a query to return only deleted records
+     *
      * @return $this
      * @see ConfigModel::onlyDeleted
      */
-    public static function onlyDeleted()
+    public static function onlyDeleted(): self
     {
     }
 
     /**
+     * Remove "withoutDeleted" in the query, expect to return all records
+     *
      * @return $this
      * @see ConfigModel::withDeleted
      */
-    public static function withDeleted()
+    public static function withDeleted(): self
     {
     }
 }
@@ -843,34 +936,68 @@ class Config2
 class ConfigModel
 {
     /**
+     * Set each attribute value, without checking whether the column is fillable, and save the model
+     *
+     * @param iterable $attributes
+     * @return $this
+     * @see ConfigModel::saveAttributes
+     */
+    public function saveAttributes(iterable $attributes = []): self
+    {
+    }
+
+    /**
+     * Returns the record data as array
+     *
+     * @param array|callable $returnFields A indexed array specified the fields to return
+     * @param callable|null $prepend
+     * @return array
+     * @see ConfigModel::toArray
+     */
+    public function toArray($returnFields = [], callable $prepend = null): array
+    {
+    }
+
+    /**
+     * Returns the success result with model data
+     *
+     * @param array $merge
+     * @return Ret
+     * @see ConfigModel::toRet
+     */
+    public function toRet(array $merge = []): \Wei\Ret
+    {
+    }
+
+    /**
      * Return the record table name
      *
      * @return string
-     * @see Model::getTable
+     * @see ConfigModel::getTable
      */
-    public function getTable()
+    public function getTable(): string
     {
     }
 
     /**
      * Import a PHP array in this record
      *
-     * @param array|\ArrayAccess $data
+     * @param iterable $array
      * @return $this
-     * @see Model::fromArray
+     * @see ConfigModel::fromArray
      */
-    public function fromArray($data)
+    public function fromArray(iterable $array): self
     {
     }
 
     /**
      * Save the record or data to database
      *
-     * @param array $data
+     * @param iterable $attributes
      * @return $this
-     * @see Model::save
+     * @see ConfigModel::save
      */
-    public function save($data = [])
+    public function save(iterable $attributes = []): self
     {
     }
 
@@ -879,22 +1006,22 @@ class ConfigModel
      *
      * @param int|string $id
      * @return $this
-     * @see Model::destroy
+     * @see ConfigModel::destroy
      */
-    public function destroy($id = null)
+    public function destroy($id = null): self
     {
     }
 
     /**
      * Set the record field value
      *
-     * @param string $name
+     * @param string|int $name
      * @param mixed $value
      * @param bool $throwException
      * @return $this|false
-     * @see Model::set
+     * @see ConfigModel::set
      */
-    public function set($name, $value = null, $throwException = true)
+    public function set($name, $value, bool $throwException = true)
     {
     }
 
@@ -903,9 +1030,9 @@ class ConfigModel
      *
      * @param int|string|array|null $id
      * @return $this|null
-     * @see Model::find
+     * @see ConfigModel::find
      */
-    public function find($id)
+    public function find($id): ?self
     {
     }
 
@@ -915,43 +1042,43 @@ class ConfigModel
      * @param int|string $id
      * @return $this
      * @throws \Exception
-     * @see Model::findOrFail
+     * @see ConfigModel::findOrFail
      */
-    public function findOrFail($id)
+    public function findOrFail($id): self
     {
     }
 
     /**
-     * Find a record by primary key, or init with the specified data if record not found
+     * Find a record by primary key, or init with the specified attributes if record not found
      *
      * @param int|string $id
-     * @param array|object $data
+     * @param array|object $attributes
      * @return $this
-     * @see Model::findOrInit
+     * @see ConfigModel::findOrInit
      */
-    public function findOrInit($id = null, $data = [])
+    public function findOrInit($id = null, $attributes = []): self
     {
     }
 
     /**
-     * Find a record by primary key, or save with the specified data if record not found
+     * Find a record by primary key, or save with the specified attributes if record not found
      *
      * @param int|string $id
-     * @param array $data
+     * @param array $attributes
      * @return $this
-     * @see Model::findOrCreate
+     * @see ConfigModel::findOrCreate
      */
-    public function findOrCreate($id, $data = [])
+    public function findOrCreate($id, $attributes = []): self
     {
     }
 
     /**
      * @param array $attributes
-     * @param array $data
+     * @param array|object $data
      * @return $this
-     * @see Model::findByOrCreate
+     * @see ConfigModel::findByOrCreate
      */
-    public function findByOrCreate($attributes, $data = [])
+    public function findByOrCreate($attributes, $data = []): self
     {
     }
 
@@ -960,9 +1087,9 @@ class ConfigModel
      *
      * @param array $ids
      * @return $this|$this[]
-     * @see Model::findAll
+     * @see ConfigModel::findAll
      */
-    public function findAll($ids)
+    public function findAll(array $ids): self
     {
     }
 
@@ -971,9 +1098,9 @@ class ConfigModel
      * @param mixed|null $operator
      * @param mixed|null $value
      * @return $this|null
-     * @see Model::findBy
+     * @see ConfigModel::findBy
      */
-    public function findBy($column, $operator = null, $value = null)
+    public function findBy($column, $operator = null, $value = null): ?self
     {
     }
 
@@ -982,9 +1109,9 @@ class ConfigModel
      * @param mixed|null $operator
      * @param mixed|null $value
      * @return $this|$this[]
-     * @see Model::findAllBy
+     * @see ConfigModel::findAllBy
      */
-    public function findAllBy($column, $operator = null, $value = null)
+    public function findAllBy($column, $operator = null, $value = null): self
     {
     }
 
@@ -992,9 +1119,9 @@ class ConfigModel
      * @param array $attributes
      * @param array|object $data
      * @return $this
-     * @see Model::findOrInitBy
+     * @see ConfigModel::findOrInitBy
      */
-    public function findOrInitBy($attributes, $data = [])
+    public function findOrInitBy(array $attributes, $data = []): self
     {
     }
 
@@ -1006,19 +1133,19 @@ class ConfigModel
      * @param mixed|null $value
      * @return $this
      * @throws \Exception
-     * @see Model::findByOrFail
+     * @see ConfigModel::findByOrFail
      */
-    public function findByOrFail($column, $operator = null, $value = null)
+    public function findByOrFail($column, $operator = null, $value = null): self
     {
     }
 
     /**
-     * @param array|Req|null $request
+     * @param Req|null $req
      * @return $this
      * @throws \Exception
-     * @see Model::findFromRequest
+     * @see ConfigModel::findFromReq
      */
-    public function findFromRequest($request = null)
+    public function findFromReq(\Wei\Req $req = null): self
     {
     }
 
@@ -1026,36 +1153,49 @@ class ConfigModel
      * Executes the generated SQL and returns the found record object or null if not found
      *
      * @return $this|null
-     * @see Model::first
+     * @see ConfigModel::first
      */
-    public function first()
+    public function first(): ?self
     {
     }
 
     /**
-     * @return $this|array
-     * @see Model::all
+     * @return $this|$this[]
+     * @see ConfigModel::all
      */
-    public function all()
+    public function all(): self
     {
     }
 
     /**
+     * Coll: Specifies a field to be the key of the fetched array
+     *
      * @param string $column
      * @return $this
-     * @see Model::indexBy
+     * @see ConfigModel::indexBy
      */
-    public function indexBy($column)
+    public function indexBy(string $column): self
     {
     }
 
     /**
-     * Returns the name of fields of current table
+     * Returns the name of columns of current table
      *
      * @return array
-     * @see QueryBuilder::getColumns
+     * @see ConfigModel::getColumns
      */
-    public function getFields()
+    public function getColumns(): array
+    {
+    }
+
+    /**
+     * Check if column name exists
+     *
+     * @param string|int|null $name
+     * @return bool
+     * @see ConfigModel::hasColumn
+     */
+    public function hasColumn($name): bool
     {
     }
 
@@ -1066,9 +1206,9 @@ class ConfigModel
      * @param mixed|null $operator
      * @param mixed|null $value
      * @return array|null
-     * @see QueryBuilder::fetch
+     * @see ConfigModel::fetch
      */
-    public function fetch($column = null, $operator = null, $value = null)
+    public function fetch($column = null, $operator = null, $value = null): ?array
     {
     }
 
@@ -1079,9 +1219,9 @@ class ConfigModel
      * @param mixed|null $operator
      * @param mixed|null $value
      * @return array
-     * @see QueryBuilder::fetchAll
+     * @see ConfigModel::fetchAll
      */
-    public function fetchAll($column = null, $operator = null, $value = null)
+    public function fetchAll($column = null, $operator = null, $value = null): array
     {
     }
 
@@ -1089,9 +1229,9 @@ class ConfigModel
      * @param string $column
      * @param string|null $index
      * @return array
-     * @see QueryBuilder::pluck
+     * @see ConfigModel::pluck
      */
-    public function pluck(string $column, string $index = null)
+    public function pluck(string $column, string $index = null): array
     {
     }
 
@@ -1099,9 +1239,9 @@ class ConfigModel
      * @param int $count
      * @param callable $callback
      * @return bool
-     * @see QueryBuilder::chunk
+     * @see ConfigModel::chunk
      */
-    public function chunk(int $count, callable $callback)
+    public function chunk(int $count, callable $callback): bool
     {
     }
 
@@ -1110,9 +1250,9 @@ class ConfigModel
      *
      * @param string $column
      * @return int
-     * @see QueryBuilder::cnt
+     * @see ConfigModel::cnt
      */
-    public function cnt($column = '*')
+    public function cnt($column = '*'): int
     {
     }
 
@@ -1122,9 +1262,9 @@ class ConfigModel
      * @param array|string $set
      * @param mixed $value
      * @return int
-     * @see QueryBuilder::update
+     * @see ConfigModel::update
      */
-    public function update($set = [], $value = null)
+    public function update($set = [], $value = null): int
     {
     }
 
@@ -1134,10 +1274,10 @@ class ConfigModel
      * @param mixed|null $column
      * @param mixed|null $operator
      * @param mixed|null $value
-     * @return mixed
-     * @see QueryBuilder::delete
+     * @return int
+     * @see ConfigModel::delete
      */
-    public function delete($column = null, $operator = null, $value = null)
+    public function delete($column = null, $operator = null, $value = null): int
     {
     }
 
@@ -1146,9 +1286,9 @@ class ConfigModel
      *
      * @param int|float|string $offset The first result to return
      * @return $this
-     * @see QueryBuilder::offset
+     * @see ConfigModel::offset
      */
-    public function offset($offset)
+    public function offset($offset): self
     {
     }
 
@@ -1157,9 +1297,9 @@ class ConfigModel
      *
      * @param int|float|string $limit The maximum number of results to retrieve
      * @return $this
-     * @see QueryBuilder::limit
+     * @see ConfigModel::limit
      */
-    public function limit($limit)
+    public function limit($limit): self
     {
     }
 
@@ -1168,9 +1308,9 @@ class ConfigModel
      *
      * @param int $page The page number
      * @return $this
-     * @see QueryBuilder::page
+     * @see ConfigModel::page
      */
-    public function page($page)
+    public function page($page): self
     {
     }
 
@@ -1180,7 +1320,7 @@ class ConfigModel
      *
      * @param array|string $columns the selection expressions
      * @return $this
-     * @see QueryBuilder::select
+     * @see ConfigModel::select
      */
     public function select($columns = ['*']): self
     {
@@ -1189,18 +1329,18 @@ class ConfigModel
     /**
      * @param array|string $columns
      * @return $this
-     * @see QueryBuilder::selectDistinct
+     * @see ConfigModel::selectDistinct
      */
-    public function selectDistinct($columns)
+    public function selectDistinct($columns): self
     {
     }
 
     /**
      * @param string $expression
      * @return $this
-     * @see QueryBuilder::selectRaw
+     * @see ConfigModel::selectRaw
      */
-    public function selectRaw($expression)
+    public function selectRaw($expression): self
     {
     }
 
@@ -1210,9 +1350,21 @@ class ConfigModel
      *
      * @param array|string $columns
      * @return $this
-     * @see QueryBuilder::selectExcept
+     * @see ConfigModel::selectExcept
      */
-    public function selectExcept($columns)
+    public function selectExcept($columns): self
+    {
+    }
+
+    /**
+     * Specifies an item of the main table that is to be returned in the query result.
+     * Default to all columns of the main table
+     *
+     * @param string $column
+     * @return $this
+     * @see ConfigModel::selectMain
+     */
+    public function selectMain(string $column = '*'): self
     {
     }
 
@@ -1222,9 +1374,9 @@ class ConfigModel
      * @param string $table
      * @param string|null $alias
      * @return $this
-     * @see QueryBuilder::from
+     * @see ConfigModel::from
      */
-    public function from($table, $alias = null): self
+    public function from(string $table, $alias = null): self
     {
     }
 
@@ -1232,7 +1384,7 @@ class ConfigModel
      * @param string $table
      * @param mixed|null $alias
      * @return $this
-     * @see QueryBuilder::table
+     * @see ConfigModel::table
      */
     public function table(string $table, $alias = null): self
     {
@@ -1242,14 +1394,14 @@ class ConfigModel
      * Adds a inner join to the query
      *
      * @param string $table The table name to join
-     * @param string $first
+     * @param string|null $first
      * @param string $operator
-     * @param string $second
+     * @param string|null $second
      * @param string $type
      * @return $this
-     * @see QueryBuilder::join
+     * @see ConfigModel::join
      */
-    public function join(string $table, string $first = null, string $operator = '=', string $second = null, string $type = 'INNER')
+    public function join(string $table, string $first = null, string $operator = '=', string $second = null, string $type = 'INNER'): self
     {
     }
 
@@ -1261,9 +1413,9 @@ class ConfigModel
      * @param string $operator
      * @param string|null $second
      * @return $this
-     * @see QueryBuilder::innerJoin
+     * @see ConfigModel::innerJoin
      */
-    public function innerJoin(string $table, string $first = null, string $operator = '=', string $second = null)
+    public function innerJoin(string $table, string $first = null, string $operator = '=', string $second = null): self
     {
     }
 
@@ -1275,9 +1427,9 @@ class ConfigModel
      * @param string $operator
      * @param string|null $second
      * @return $this
-     * @see QueryBuilder::leftJoin
+     * @see ConfigModel::leftJoin
      */
-    public function leftJoin(string $table, string $first = null, string $operator = '=', string $second = null)
+    public function leftJoin(string $table, string $first = null, string $operator = '=', string $second = null): self
     {
     }
 
@@ -1289,9 +1441,9 @@ class ConfigModel
      * @param string $operator
      * @param string|null $second
      * @return $this
-     * @see QueryBuilder::rightJoin
+     * @see ConfigModel::rightJoin
      */
-    public function rightJoin(string $table, string $first = null, string $operator = '=', string $second = null)
+    public function rightJoin(string $table, string $first = null, string $operator = '=', string $second = null): self
     {
     }
 
@@ -1310,19 +1462,19 @@ class ConfigModel
      * @param mixed|null $operator
      * @param mixed|null $value
      * @return $this
-     * @see QueryBuilder::where
+     * @see ConfigModel::where
      */
-    public function where($column = null, $operator = null, $value = null)
+    public function where($column = null, $operator = null, $value = null): self
     {
     }
 
     /**
-     * @param string $expression
+     * @param scalar $expression
      * @param mixed $params
      * @return $this
-     * @see QueryBuilder::whereRaw
+     * @see ConfigModel::whereRaw
      */
-    public function whereRaw($expression, $params = [])
+    public function whereRaw($expression, $params = null): self
     {
     }
 
@@ -1330,9 +1482,9 @@ class ConfigModel
      * @param string $column
      * @param array $params
      * @return $this
-     * @see QueryBuilder::whereBetween
+     * @see ConfigModel::whereBetween
      */
-    public function whereBetween($column, array $params)
+    public function whereBetween(string $column, array $params): self
     {
     }
 
@@ -1340,9 +1492,9 @@ class ConfigModel
      * @param string $column
      * @param array $params
      * @return $this
-     * @see QueryBuilder::orWhereBetween
+     * @see ConfigModel::whereNotBetween
      */
-    public function orWhereBetween($column, array $params)
+    public function whereNotBetween(string $column, array $params): self
     {
     }
 
@@ -1350,9 +1502,9 @@ class ConfigModel
      * @param string $column
      * @param array $params
      * @return $this
-     * @see QueryBuilder::whereNotBetween
+     * @see ConfigModel::whereIn
      */
-    public function whereNotBetween($column, array $params)
+    public function whereIn(string $column, array $params): self
     {
     }
 
@@ -1360,37 +1512,27 @@ class ConfigModel
      * @param string $column
      * @param array $params
      * @return $this
-     * @see QueryBuilder::whereIn
+     * @see ConfigModel::whereNotIn
      */
-    public function whereIn($column, array $params)
-    {
-    }
-
-    /**
-     * @param string $column
-     * @param array $params
-     * @return $this
-     * @see QueryBuilder::whereNotIn
-     */
-    public function whereNotIn($column, array $params)
+    public function whereNotIn(string $column, array $params): self
     {
     }
 
     /**
      * @param string $column
      * @return $this
-     * @see QueryBuilder::whereNull
+     * @see ConfigModel::whereNull
      */
-    public function whereNull($column)
+    public function whereNull(string $column): self
     {
     }
 
     /**
      * @param string $column
      * @return $this
-     * @see QueryBuilder::whereNotNULL
+     * @see ConfigModel::whereNotNull
      */
-    public function whereNotNULL($column)
+    public function whereNotNull(string $column): self
     {
     }
 
@@ -1399,9 +1541,9 @@ class ConfigModel
      * @param mixed $opOrValue
      * @param mixed|null $value
      * @return $this
-     * @see QueryBuilder::whereDate
+     * @see ConfigModel::whereDate
      */
-    public function whereDate($column, $opOrValue, $value = null)
+    public function whereDate(string $column, $opOrValue, $value = null): self
     {
     }
 
@@ -1410,9 +1552,9 @@ class ConfigModel
      * @param mixed $opOrValue
      * @param mixed|null $value
      * @return $this
-     * @see QueryBuilder::whereMonth
+     * @see ConfigModel::whereMonth
      */
-    public function whereMonth($column, $opOrValue, $value = null)
+    public function whereMonth(string $column, $opOrValue, $value = null): self
     {
     }
 
@@ -1421,9 +1563,9 @@ class ConfigModel
      * @param mixed $opOrValue
      * @param mixed|null $value
      * @return $this
-     * @see QueryBuilder::whereDay
+     * @see ConfigModel::whereDay
      */
-    public function whereDay($column, $opOrValue, $value = null)
+    public function whereDay(string $column, $opOrValue, $value = null): self
     {
     }
 
@@ -1432,9 +1574,9 @@ class ConfigModel
      * @param mixed $opOrValue
      * @param mixed|null $value
      * @return $this
-     * @see QueryBuilder::whereYear
+     * @see ConfigModel::whereYear
      */
-    public function whereYear($column, $opOrValue, $value = null)
+    public function whereYear(string $column, $opOrValue, $value = null): self
     {
     }
 
@@ -1443,20 +1585,20 @@ class ConfigModel
      * @param mixed $opOrValue
      * @param mixed|null $value
      * @return $this
-     * @see QueryBuilder::whereTime
+     * @see ConfigModel::whereTime
      */
-    public function whereTime($column, $opOrValue, $value = null)
+    public function whereTime(string $column, $opOrValue, $value = null): self
     {
     }
 
     /**
      * @param string $column
-     * @param string $opOrColumn2
-     * @param string|null $column2
+     * @param mixed $opOrColumn2
+     * @param mixed|null $column2
      * @return $this
-     * @see QueryBuilder::whereColumn
+     * @see ConfigModel::whereColumn
      */
-    public function whereColumn($column, $opOrColumn2, $column2 = null)
+    public function whereColumn(string $column, $opOrColumn2, $column2 = null): self
     {
     }
 
@@ -1464,23 +1606,46 @@ class ConfigModel
      * 搜索字段是否包含某个值
      *
      * @param string $column
-     * @param string $value
+     * @param mixed $value
      * @param string $condition
      * @return $this
-     * @see QueryBuilder::whereContains
+     * @see ConfigModel::whereContains
      */
-    public function whereContains($column, $value, string $condition = 'AND')
+    public function whereContains(string $column, $value, string $condition = 'AND'): self
     {
     }
 
     /**
-     * @param mixed $column
+     * @param string $column
      * @param mixed $value
      * @param string $condition
      * @return $this
-     * @see QueryBuilder::whereNotContains
+     * @see ConfigModel::whereNotContains
      */
-    public function whereNotContains($column, $value, string $condition = 'OR')
+    public function whereNotContains(string $column, $value, string $condition = 'OR'): self
+    {
+    }
+
+    /**
+     * Search whether a column has a value other than the default value
+     *
+     * @param string $column
+     * @param bool $has
+     * @return $this
+     * @see ConfigModel::whereHas
+     */
+    public function whereHas(string $column, bool $has = true): self
+    {
+    }
+
+    /**
+     * Search whether a column dont have a value other than the default value
+     *
+     * @param string $column
+     * @return $this
+     * @see ConfigModel::whereNotHas
+     */
+    public function whereNotHas(string $column): self
     {
     }
 
@@ -1490,9 +1655,9 @@ class ConfigModel
      *
      * @param mixed $column the grouping column
      * @return $this
-     * @see QueryBuilder::groupBy
+     * @see ConfigModel::groupBy
      */
-    public function groupBy($column)
+    public function groupBy($column): self
     {
     }
 
@@ -1505,9 +1670,9 @@ class ConfigModel
      * @param mixed|null $value
      * @param mixed $condition
      * @return $this
-     * @see QueryBuilder::having
+     * @see ConfigModel::having
      */
-    public function having($column, $operator, $value = null, $condition = 'AND')
+    public function having($column, $operator, $value = null, $condition = 'AND'): self
     {
     }
 
@@ -1518,9 +1683,9 @@ class ConfigModel
      * @param string $column the ordering expression
      * @param string $order the ordering direction
      * @return $this
-     * @see QueryBuilder::orderBy
+     * @see ConfigModel::orderBy
      */
-    public function orderBy($column, $order = 'ASC')
+    public function orderBy(string $column, $order = 'ASC'): self
     {
     }
 
@@ -1529,9 +1694,9 @@ class ConfigModel
      *
      * @param string $field The name of field
      * @return $this
-     * @see QueryBuilder::desc
+     * @see ConfigModel::desc
      */
-    public function desc($field)
+    public function desc(string $field): self
     {
     }
 
@@ -1540,45 +1705,34 @@ class ConfigModel
      *
      * @param string $field The name of field
      * @return $this
-     * @see QueryBuilder::asc
+     * @see ConfigModel::asc
      */
-    public function asc($field)
-    {
-    }
-
-    /**
-     * Reset single SQL part
-     *
-     * @param string $name
-     * @return $this
-     * @see QueryBuilder::resetSqlPart
-     */
-    public function resetSqlPart($name)
+    public function asc(string $field): self
     {
     }
 
     /**
      * @return $this
-     * @see QueryBuilder::forUpdate
+     * @see ConfigModel::forUpdate
      */
-    public function forUpdate()
+    public function forUpdate(): self
     {
     }
 
     /**
      * @return $this
-     * @see QueryBuilder::forShare
+     * @see ConfigModel::forShare
      */
-    public function forShare()
+    public function forShare(): self
     {
     }
 
     /**
      * @param string|bool $lock
      * @return $this
-     * @see QueryBuilder::lock
+     * @see ConfigModel::lock
      */
-    public function lock($lock)
+    public function lock($lock): self
     {
     }
 
@@ -1587,9 +1741,9 @@ class ConfigModel
      * @param callable $callback
      * @param callable|null $default
      * @return $this
-     * @see QueryBuilder::when
+     * @see ConfigModel::when
      */
-    public function when($value, $callback, callable $default = null)
+    public function when($value, callable $callback, callable $default = null): self
     {
     }
 
@@ -1598,71 +1752,103 @@ class ConfigModel
      * @param callable $callback
      * @param callable|null $default
      * @return $this
-     * @see QueryBuilder::unless
+     * @see ConfigModel::unless
      */
-    public function unless($value, callable $callback, callable $default = null)
+    public function unless($value, callable $callback, callable $default = null): self
     {
     }
 
     /**
-     * @param callable $converter
+     * @param callable|null $converter
      * @return $this
-     * @see QueryBuilder::setDbKeyConverter
+     * @see ConfigModel::setDbKeyConverter
      */
-    public function setInputIdentifierConverter(callable $converter)
+    public function setDbKeyConverter(callable $converter = null): self
+    {
+    }
+
+    /**
+     * @param callable|null $converter
+     * @return $this
+     * @see ConfigModel::setPhpKeyConverter
+     */
+    public function setPhpKeyConverter(callable $converter = null): self
     {
     }
 
     /**
      * Set or remove cache time for the query
      *
-     * @param false|int|null $seconds
+     * @param int|null $seconds
      * @return $this
-     * @see QueryBuilder::setCacheTime
+     * @see ConfigModel::setCacheTime
      */
-    public function cache($seconds = null)
+    public function setCacheTime(?int $seconds): self
     {
     }
 
     /**
      * @param array|string|true $scopes
      * @return $this
-     * @see Model::unscoped
+     * @see ConfigModel::unscoped
      */
-    public function unscoped($scopes = [])
+    public function unscoped($scopes = []): self
     {
     }
 
     /**
-     * @param mixed $conditions
+     * Check if the model method defines the "Relation" attribute (or the "@Relation" tag in doc comment)
+     *
+     * This method only checks whether the specified method has the "Relation" attribute,
+     * and does not check the actual logic.
+     * It is provided for external use to avoid directly calling `$this->$relation()` to cause attacks.
+     *
+     * @param string $method
+     * @return bool
+     * @see ConfigModel::isRelation
+     */
+    public function isRelation(string $method): bool
+    {
+    }
+
+    /**
+     * Really remove the record from database
+     *
+     * @param int|string $id
      * @return $this
      * @see ConfigModel::reallyDestroy
      */
-    public function reallyDestroy($conditions = false)
+    public function reallyDestroy($id = false): self
     {
     }
 
     /**
+     * Add a query to filter soft deleted records
+     *
      * @return $this
      * @see ConfigModel::withoutDeleted
      */
-    public function withoutDeleted()
+    public function withoutDeleted(): self
     {
     }
 
     /**
+     * Add a query to return only deleted records
+     *
      * @return $this
      * @see ConfigModel::onlyDeleted
      */
-    public function onlyDeleted()
+    public function onlyDeleted(): self
     {
     }
 
     /**
+     * Remove "withoutDeleted" in the query, expect to return all records
+     *
      * @return $this
      * @see ConfigModel::withDeleted
      */
-    public function withDeleted()
+    public function withDeleted(): self
     {
     }
 }

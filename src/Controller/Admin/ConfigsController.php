@@ -25,7 +25,7 @@ class ConfigsController extends BaseController
                     'data' => $configs,
                     'page' => (int) $req['page'],
                     'rows' => (int) $req['rows'],
-                    'records' => $configs->count(),
+                    'records' => $configs->cnt(),
                 ]);
 
             default:

@@ -15,6 +15,7 @@ use stdClass;
  */
 class ConfigModel extends BaseModel
 {
+    use ModelTrait;
     use ConstTrait;
     use ConfigTrait;
     use SoftDeleteTrait;
@@ -63,12 +64,11 @@ class ConfigModel extends BaseModel
         'type_label',
     ];
 
-    public function getCasts(): array
-    {
-        return array_merge(parent::getCasts(), [
-            'value' => 'mixed',
-        ]);
-    }
+    protected $columns = [
+        'value' => [
+            'cast' => 'mixed',
+        ],
+    ];
 
     /**
      * 保存一项配置

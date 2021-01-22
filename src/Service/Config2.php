@@ -89,7 +89,7 @@ class Config2 extends \Wei\Config
                 ]);
         }
 
-        $configs->db->transactional(function () use ($configs) {
+        $configs->getDb()->transactional(function () use ($configs) {
             $configs->save();
         });
 
