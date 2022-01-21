@@ -243,7 +243,7 @@ class Config2 extends \Wei\Config
      */
     protected function getVersion()
     {
-        $version = $this->cache->get($this->getVersionKey(), function () {
+        $version = $this->cache->remember($this->getVersionKey(), function () {
             return $this->initModel()->findOrInitBy(['name' => $this->getVersionKey()])->getPhpValue();
         });
 
