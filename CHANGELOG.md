@@ -1,3 +1,20 @@
+## [0.1.48](https://github.com/miaoxing/config/compare/v0.1.47...v0.1.48) (2023-07-31)
+
+
+### Features
+
+* **config:** 增加全局配置管理 ([abdd652](https://github.com/miaoxing/config/commit/abdd652975ad8b6ebf346bcad4732aba2ff25a6d))
+* **config:** 增加配置管理功能 ([3399644](https://github.com/miaoxing/config/commit/33996441027a1bb875d09861827e7519071a2452))
+
+
+
+
+
+### Dependencies
+
+* **@miaoxing/app:** upgrade from `0.7.4` to `0.7.5`
+* **@miaoxing/dev:** upgrade from `8.2.1` to `8.2.2`
+
 ## [0.1.47](https://github.com/miaoxing/config/compare/v0.1.46...v0.1.47) (2023-06-30)
 
 
