@@ -16,7 +16,7 @@ return new class () extends BasePage {
     public function patch()
     {
         return UpdateAction::new()
-            ->validate(function (ConfigModel $config, $req) {
+            ->validate(static function (ConfigModel $config, $req) {
                 $v = V::defaultOptional();
                 $v->setModel($config);
                 $v->modelColumn('name', '名称')->notEmpty()->notModelDup();
@@ -25,7 +25,7 @@ return new class () extends BasePage {
                 $v->modelColumn('comment', '注释');
                 return $v->check($req);
             })
-            ->afterSave(function (ConfigModel $config) {
+            ->afterSave(static function (ConfigModel $config) {
                 Config::updateCache($config);
             })
             ->exec($this);
@@ -34,7 +34,7 @@ return new class () extends BasePage {
     public function delete()
     {
         return DestroyAction::new()
-            ->afterDestroy(function (ConfigModel $config) {
+            ->afterDestroy(static function (ConfigModel $config) {
                 Config::deleteCache($config);
             })
             ->exec($this);

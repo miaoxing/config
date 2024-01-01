@@ -16,7 +16,7 @@ return new class () extends BasePage {
     public function patch()
     {
         return UpdateAction::new()
-            ->validate(function (GlobalConfigModel $config, $req) {
+            ->validate(static function (GlobalConfigModel $config, $req) {
                 $v = V::defaultOptional();
                 $v->setModel($config);
                 $v->modelColumn('name', '名称')->notEmpty()->notModelDup();
@@ -26,7 +26,7 @@ return new class () extends BasePage {
                 $v->modelColumn('comment', '注释');
                 return $v->check($req);
             })
-            ->afterSave(function (GlobalConfigModel $config) {
+            ->afterSave(static function (GlobalConfigModel $config) {
                 Config::updateCache($config);
                 Config::publishPreload();
             })
@@ -36,7 +36,7 @@ return new class () extends BasePage {
     public function delete()
     {
         return DestroyAction::new()
-            ->afterDestroy(function (GlobalConfigModel $config) {
+            ->afterDestroy(static function (GlobalConfigModel $config) {
                 Config::deleteCache($config);
             })
             ->exec($this);
