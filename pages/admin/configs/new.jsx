@@ -3,7 +3,7 @@
  */
 import { CListBtn } from '@mxjs/a-clink';
 import { Page, PageActions } from '@mxjs/a-page';
-import { Form, FormItem, FormAction } from '@mxjs/a-form';
+import { Form, FormItem, FormActions } from '@mxjs/a-form';
 import { Select } from '@miaoxing/admin';
 import { Section } from '@mxjs/a-section';
 
@@ -28,7 +28,7 @@ const New = () => {
 
               <FormItem label="注释" name="comment" type="textarea"/>
             </Section>
-            <FormAction/>
+            <FormActions/>
           </>;
         }}
       </Form>
