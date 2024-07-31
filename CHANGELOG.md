@@ -1,3 +1,19 @@
+## [0.1.62](https://github.com/miaoxing/config/compare/v0.1.61...v0.1.62) (2024-07-31)
+
+
+### Features
+
+* **u:** 调整页面内容为卡片视图 ([eae53f6](https://github.com/miaoxing/config/commit/eae53f6da4c8b7a7aff12a7158c7e371a4f3401b))
+
+
+
+
+
+### Dependencies
+
+* **@miaoxing/app:** upgrade from `0.10.1` to `0.10.2`
+* **@miaoxing/dev:** upgrade from `9.1.1` to `9.1.2`
+
 ## [0.1.61](https://github.com/miaoxing/config/compare/v0.1.60...v0.1.61) (2024-06-30)
 
 
