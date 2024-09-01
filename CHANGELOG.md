@@ -1,3 +1,19 @@
+## [0.1.64](https://github.com/miaoxing/config/compare/v0.1.63...v0.1.64) (2024-09-01)
+
+
+### Features
+
+* 插件增加 wei 命令行入口 ([d52b087](https://github.com/miaoxing/config/commit/d52b08782fab46f9bdfae61620184b0bcdf7037f))
+
+
+
+
+
+### Dependencies
+
+* **@miaoxing/app:** upgrade from `0.10.3` to `0.10.4`
+* **@miaoxing/dev:** upgrade from `9.1.3` to `9.2.0`
+
 ## [0.1.63](https://github.com/miaoxing/config/compare/v0.1.62...v0.1.63) (2024-08-03)
 
 
