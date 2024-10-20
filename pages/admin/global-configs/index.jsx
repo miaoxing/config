@@ -29,7 +29,7 @@ const Index = () => {
               title: '是否预加载',
               dataIndex: 'preload',
               align: 'center',
-              render: (preload) => preload ? <Tag color="blue">是</Tag> : <Tag>否</Tag>,
+              render: (preload) => preload ? <Tag color="blue" bordered={false}>是</Tag> : <Tag bordered={false}>否</Tag>,
             },
             {
               title: '更新时间',
