@@ -1,3 +1,13 @@
+## [0.1.66](https://github.com/miaoxing/config/compare/v0.1.65...v0.1.66) (2024-11-01)
+
+
+
+
+
+### Dependencies
+
+* **@miaoxing/app:** upgrade from `0.10.5` to `0.10.6`
+
 ## [0.1.65](https://github.com/miaoxing/config/compare/v0.1.64...v0.1.65) (2024-09-30)
 
 
